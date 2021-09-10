@@ -18,9 +18,9 @@ VAR3=~/.aws/config
 PREFIX=~/.okta bash <(curl -fsSL https://raw.githubusercontent.com/oktadeveloper/okta-aws-cli-assume-role/master/bin/install.sh) -i
 
 # add Komodo information to empty okta config.properties
+echo "--- populating ~/.okta/config.properties with Komodo info"
 echo ""
-echo "#### populating ~/.okta/config.properties with Komodo info ####"
-echo ""
+echo "#########"
 rm ~/.okta/config.properties
 touch ~/.okta/config.properties
 
@@ -31,12 +31,10 @@ echo "OKTA_USERNAME=$VAR1" >> ~/.okta/config.properties
 echo "OKTA_BROWSER_AUTH=True" >> ~/.okta/config.properties
 echo "OKTA_STS_DURATION = 43200" >> ~/.okta/config.properties
 
-export PATH=$PATH:~/.okta/bin
-
 # add section to shell profile, as recommended by ~/.okta install
 echo ""
-echo "#### adding 'okta-aws' to command line ####"
-echo ""
+echo "#########"
+echo "--- adding 'okta-aws' to command line"
 echo '' >> $VAR2
 echo '# OktaAWSCLI insert' >> $VAR2
 echo 'if [[ -f "$HOME/.okta/bash_functions" ]]; then' >> $VAR2
@@ -50,8 +48,8 @@ source ~/.zshrc
 
 # default aws configs are still necessary for 'okta-aws' to function properly
 echo ""
-echo "#### adding aws default region and output ####"
-echo ""
+echo "#########"
+echo "--- adding aws default region and output"
 mkdir ~/.aws
 rm $VAR3
 touch $VAR3
@@ -65,7 +63,6 @@ echo 'output = json' >> $VAR3
 #########
 
 echo ""
-echo "#########"
 echo "#########"
 echo "okta-aws install and setup complete"
 echo " "
