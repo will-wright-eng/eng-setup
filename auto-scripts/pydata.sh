@@ -13,7 +13,7 @@ echo "Setting up pip."
 # easy_install pip easy_install has been deprecated
 # source: https://stackoverflow.com/questions/17271319/how-do-i-install-pip-on-macos-or-os-x
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
+python3 get-pip.py
 
 ###############################################################################
 # Virtual Enviroments                                                         #

@@ -22,17 +22,17 @@ brew update
 brew upgrade --all
 
 # Install `wget` with IRI support.
-brew install wget --with-iri
+brew install wget #--with-iri
 
 # Install Python
 brew install python
 brew install python3
-brew install apache-spark
+# brew install apache-spark
 
 # Install more recent versions of some OS X tools.
-brew install vim --override-system-vi
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
+brew install vim #--override-system-vi
+brew install grep
+brew install openssh
 
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
 brew install binutils
@@ -45,16 +45,19 @@ brew install gh
 brew install tree
 
 # Komodo stack
-brew install --cask snowflake-snowsql
-brew install aws-iam-authenticator
-brew install gimme-aws-creds
-brew install kubectl
+#brew install --cask snowflake-snowsql
+#brew install aws-iam-authenticator
+#brew install gimme-aws-creds
+#brew install kubectl
 
 # extra stuff
-echo "" >> ~/.zshrc
-echo "alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc
-chmod 700 ~/.snowsql/config
-chmod 700 ~/.aws/config
+#echo "" >> ~/.zshrc
+#echo "alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc
+#chmod 700 ~/.snowsql/config
+#chmod 700 ~/.aws/config
+
+brew install --cask spotify
+brew install --cask transmission
 
 # Core casks
 brew install --cask --appdir="~/Applications" iterm2
@@ -62,19 +65,19 @@ brew install --cask --appdir="~/Applications" java
 
 # Development tool casks
 brew install --cask --appdir="/Applications" sublime-text
-brew install --cask --appdir="/Applications" sublime-merge
+#brew install --cask --appdir="/Applications" sublime-merge
 brew install --cask --appdir="/Applications" macdown
-brew install --cask --appdir="/Applications" tableplus
-brew install --cask --appdir="/Applications" postico
-brew install --cask --appdir="/Applications" postman
+#brew install --cask --appdir="/Applications" tableplus
+#brew install --cask --appdir="/Applications" postico
+#brew install --cask --appdir="/Applications" postman
 
 # Misc casks
 brew install --cask --appdir="/Applications" brave-browser
-brew install --cask --appdir="/Applications" google-chrome
+#brew install --cask --appdir="/Applications" google-chrome
 brew install --cask --appdir="/Applications" slack
-brew install --cask --appdir="/Applications" dropbox
-brew install --cask --appdir="/Applications" zoomus
-brew install --cask --appdir="/Applications" 1password
+#brew install --cask --appdir="/Applications" dropbox
+brew install --cask --appdir="/Applications" zoom
+#brew install --cask --appdir="/Applications" 1password
 
 # Install Docker, which requires virtualbox
 brew install docker
