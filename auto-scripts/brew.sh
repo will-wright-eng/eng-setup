@@ -56,8 +56,13 @@ brew install tree
 #chmod 700 ~/.snowsql/config
 #chmod 700 ~/.aws/config
 
+brew install htop
+brew install awscli
+brew install jupyterlab
+
 brew install --cask spotify
 brew install --cask transmission
+brew install --cask microsoft-excel
 
 # Core casks
 brew install --cask --appdir="~/Applications" iterm2

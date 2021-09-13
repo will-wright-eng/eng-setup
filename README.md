@@ -81,3 +81,7 @@ $ git config --global user.email johndoe@example.com
 ```
 
 - fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
+
+- set default browser to firefox
+
+- setup aws credentials ([link](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)) via `aws configure`
