@@ -48,8 +48,10 @@ brew install tree
 #brew install --cask snowflake-snowsql
 #brew install gimme-aws-creds
 
+
 brew install htop
 brew install awscli
+brew install direnv
 brew install jupyterlab
 
 brew install --cask vlc
