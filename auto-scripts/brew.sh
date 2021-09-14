@@ -46,22 +46,16 @@ brew install tree
 
 # Komodo stack
 #brew install --cask snowflake-snowsql
-#brew install aws-iam-authenticator
 #brew install gimme-aws-creds
-#brew install kubectl
-
-# extra stuff
-#echo "" >> ~/.zshrc
-#echo "alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc
-#chmod 700 ~/.snowsql/config
-#chmod 700 ~/.aws/config
 
 brew install htop
 brew install awscli
 brew install jupyterlab
 
+brew install --cask vlc
 brew install --cask spotify
 brew install --cask transmission
+brew install --cask the-unarchiver
 brew install --cask microsoft-excel
 
 # Core casks
@@ -70,19 +64,14 @@ brew install --cask --appdir="~/Applications" java
 
 # Development tool casks
 brew install --cask --appdir="/Applications" sublime-text
-#brew install --cask --appdir="/Applications" sublime-merge
 brew install --cask --appdir="/Applications" macdown
-#brew install --cask --appdir="/Applications" tableplus
 #brew install --cask --appdir="/Applications" postico
 #brew install --cask --appdir="/Applications" postman
 
 # Misc casks
 brew install --cask --appdir="/Applications" brave-browser
-#brew install --cask --appdir="/Applications" google-chrome
 brew install --cask --appdir="/Applications" slack
-#brew install --cask --appdir="/Applications" dropbox
 brew install --cask --appdir="/Applications" zoom
-#brew install --cask --appdir="/Applications" 1password
 
 # Install Docker, which requires virtualbox
 brew install docker

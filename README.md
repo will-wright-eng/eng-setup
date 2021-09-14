@@ -85,3 +85,11 @@ $ git config --global user.email johndoe@example.com
 - set default browser to firefox
 
 - setup aws credentials ([link](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)) via `aws configure`
+
+- iterm stuff
+	- General/Working Directory: Reuse previous session's directory
+	- Colors/Color Presets.../Solarized Dark
+	- Minimum contrast: 20
+	- Scrollback lines: Unlimited scrollback
+
+- 
