@@ -9,6 +9,7 @@ macOS development environment setup: Easy-to-understand instructions with automa
 - [Process Definition](#process-definition)
 - [Ideal Setup](#setup)
 - [Notes](#notes)
+- [TODO](#todo)
 
 ## Summary
 
@@ -84,4 +85,17 @@ $ git config --global user.email johndoe@example.com
 
 - set default browser to firefox
 
-- setup aws credentials ([link](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)) via `aws configure`
+- created new IAM profile
+- added aws credentials locally ([link](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)) via `aws configure`
+
+- iterm stuff
+	- General/Working Directory: Reuse previous session's directory
+	- Colors/Color Presets.../Solarized Dark
+	- Minimum contrast: 20
+	- Scrollback lines: Unlimited scrollback
+
+- download [rar expander](http://rarexpander.sourceforge.net/)
+- set dock to only show active apps `defaults write com.apple.dock static-only -bool true; killall Dock`
+
+## TODO
+- uninstall iTunes and iMovie
