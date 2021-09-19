@@ -48,10 +48,12 @@ brew install tree
 #brew install --cask snowflake-snowsql
 #brew install gimme-aws-creds
 
+brew install direnv
+echo "" >> ~/.zshrc
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 
 brew install htop
 brew install awscli
-brew install direnv
 brew install jupyterlab
 
 brew install --cask vlc
