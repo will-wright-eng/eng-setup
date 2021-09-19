@@ -60,6 +60,7 @@ brew install --cask vlc
 brew install --cask spotify
 brew install --cask transmission
 brew install --cask the-unarchiver
+brew install --cask microsoft-word
 brew install --cask microsoft-excel
 
 # Core casks

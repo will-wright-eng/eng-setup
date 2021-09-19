@@ -37,6 +37,15 @@ brew install zsh
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
 
-echo "source /Users/willwright/repos/zsh-git-prompt/zshrc.sh
+echo "# initialize zsh customizations
+source /Users/willwright/repos/zsh-git-prompt/zshrc.sh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+" >> ~/.zshrc
+
+## NOTE
+# the following lines were added, in place of the default oh-my-zsh prompt
+echo "# custom prompts
+PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f%b$(git_super_status) %# '
+RPROMPT='%*'
+" >> ~/.zshrc
