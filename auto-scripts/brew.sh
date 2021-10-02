@@ -54,10 +54,12 @@ echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 
 brew install htop
 brew install awscli
+brew install awsebcli
 brew install jupyterlab
 
 brew install --cask vlc
 brew install --cask spotify
+brew install --cask rectangle
 brew install --cask transmission
 brew install --cask the-unarchiver
 brew install --cask microsoft-word
@@ -70,7 +72,7 @@ brew install --cask --appdir="~/Applications" java
 # Development tool casks
 brew install --cask --appdir="/Applications" sublime-text
 brew install --cask --appdir="/Applications" macdown
-#brew install --cask --appdir="/Applications" postico
+brew install --cask --appdir="/Applications" postico
 #brew install --cask --appdir="/Applications" postman
 
 # Misc casks
