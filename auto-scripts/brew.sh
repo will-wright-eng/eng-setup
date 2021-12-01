@@ -60,10 +60,12 @@ brew install jupyterlab
 brew install --cask vlc
 brew install --cask spotify
 brew install --cask rectangle
+brew install --cask rescuetime
 brew install --cask transmission
 brew install --cask the-unarchiver
 brew install --cask microsoft-word
 brew install --cask microsoft-excel
+brew install --cask visual-studio-code
 
 # Core casks
 brew install --cask --appdir="~/Applications" iterm2
