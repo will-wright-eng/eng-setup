@@ -33,10 +33,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 #chmod 700 ~/.snowsql/config
 #chmod 700 ~/.aws/config
 
-brew install zsh
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
-
-echo "source /Users/willwright/repos/zsh-git-prompt/zshrc.sh
+echo "
+#iterm customizations
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc

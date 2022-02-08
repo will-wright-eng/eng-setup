@@ -58,6 +58,7 @@ brew install jupyterlab
 
 brew install --cask vlc
 brew install --cask spotify
+brew install --cask rectangle
 brew install --cask transmission
 brew install --cask the-unarchiver
 brew install --cask microsoft-excel
@@ -83,3 +84,8 @@ brew install boot2docker
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+# iterm customization
+brew install zsh
+brew install zsh-autosuggestions
+brew install zsh-syntax-highlighting
