@@ -58,6 +58,7 @@ brew install awsebcli
 brew install jupyterlab
 
 brew install --cask vlc
+brew install --cask soapui #maybe?
 brew install --cask spotify
 brew install --cask rectangle
 brew install --cask rescuetime
@@ -82,9 +83,13 @@ brew install --cask --appdir="/Applications" brave-browser
 brew install --cask --appdir="/Applications" slack
 brew install --cask --appdir="/Applications" zoom
 
-# Install Docker, which requires virtualbox
-brew install docker
-brew install boot2docker
+# Docker
+brew install --cask docker
+# brew install boot2docker
+
+# Terraform
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
 
 # Remove outdated versions from the cellar.
 brew cleanup
