@@ -54,14 +54,19 @@ echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 
 brew install htop
 brew install awscli
+brew install awsebcli
 brew install jupyterlab
 
 brew install --cask vlc
+brew install --cask soapui #maybe?
 brew install --cask spotify
 brew install --cask rectangle
+brew install --cask rescuetime
 brew install --cask transmission
 brew install --cask the-unarchiver
+brew install --cask microsoft-word
 brew install --cask microsoft-excel
+brew install --cask visual-studio-code
 
 # Core casks
 brew install --cask --appdir="~/Applications" iterm2
@@ -70,7 +75,7 @@ brew install --cask --appdir="~/Applications" java
 # Development tool casks
 brew install --cask --appdir="/Applications" sublime-text
 brew install --cask --appdir="/Applications" macdown
-#brew install --cask --appdir="/Applications" postico
+brew install --cask --appdir="/Applications" postico
 #brew install --cask --appdir="/Applications" postman
 
 # Misc casks
@@ -78,9 +83,13 @@ brew install --cask --appdir="/Applications" brave-browser
 brew install --cask --appdir="/Applications" slack
 brew install --cask --appdir="/Applications" zoom
 
-# Install Docker, which requires virtualbox
-brew install docker
-brew install boot2docker
+# Docker
+brew install --cask docker
+# brew install boot2docker
+
+# Terraform
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
 
 # Remove outdated versions from the cellar.
 brew cleanup

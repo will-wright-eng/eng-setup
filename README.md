@@ -69,8 +69,6 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ```
 
-
-
 ### 20210910 personal mac reformat notes
 - open safari
 - download Firefox
@@ -128,9 +126,13 @@ $ git config --global user.email johndoe@example.com
 - download [rar expander](http://rarexpander.sourceforge.net/)
 - set dock to only show active apps `defaults write com.apple.dock static-only -bool true; killall Dock`
 
+- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome) Firefox extension
+
 ## TODO
 - uninstall iTunes and iMovie
-
+- forgot about transferring bookmarks over
+- add pre-guide for reformatting computer (cleanlieness of running on a freshly reformatted system --> coneceptually or at a high-level, what are you trying to carry over and what are you trying to leave behind?)
+- ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
 
 ## Tree
 ```bash
