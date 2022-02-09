@@ -69,6 +69,20 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ```
 
+- adjusted application settings
+	- gmail inbox tabs
+	- slack dark mode
+	- added my face to slack and gmail profiles
+
+- adjusted "Turn display off after" settings
+
+- iterm Profile stuff
+	- Keys/Key Mappings: fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
+	- General/Working Directory: Reuse previous session's directory
+	- Colors/Color Presets.../Solarized Dark
+	- Colors/Minimum contrast: 20
+	- Terminal/Scrollback lines: Unlimited scrollback
+
 ### 20210910 personal mac reformat notes
 - open safari
 - download Firefox
