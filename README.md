@@ -78,10 +78,13 @@ $ git config --global user.email johndoe@example.com
 
 - iterm Profile stuff
 	- Keys/Key Mappings: fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
+	- Keys/Key Mappings: add alt delete ([link](https://stackoverflow.com/questions/42735929/how-to-delete-a-word-in-iterm-in-mac-os))
 	- General/Working Directory: Reuse previous session's directory
 	- Colors/Color Presets.../Solarized Dark
 	- Colors/Minimum contrast: 20
 	- Terminal/Scrollback lines: Unlimited scrollback
+
+- [iterm prompt fixes](https://www.makeuseof.com/customize-zsh-prompt-macos-terminal/)
 
 ### 20210910 personal mac reformat notes
 - open safari

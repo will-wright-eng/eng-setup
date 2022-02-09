@@ -43,3 +43,23 @@ echo "Host ec2
 #chmod 700 ~/.snowsql/config
 #chmod 700 ~/.aws/config
 
+###############################################################################
+# example .zshrc file
+###############################################################################
+
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git git-prompt)
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f %b$(git_super_status)%# '
+RPROMPT='%*'
+
+# initalize iterm customizations
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
