@@ -38,12 +38,6 @@ brew install openssh
 brew install binutils
 brew install nmap
 
-# Install other useful binaries.
-brew install ack
-brew install git
-brew install gh
-brew install tree
-
 # Komodo stack
 #brew install --cask snowflake-snowsql
 #brew install gimme-aws-creds
@@ -52,12 +46,18 @@ brew install direnv
 echo "" >> ~/.zshrc
 echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 
+# Install other useful binaries.
+brew install ack
+brew install git
+# brew install gh
+brew install tree
 brew install htop
 brew install awscli
 brew install awsebcli
 brew install jupyterlab
 
 brew install --cask vlc
+brew install --cask docker
 brew install --cask soapui #maybe?
 brew install --cask spotify
 brew install --cask rectangle
@@ -69,8 +69,8 @@ brew install --cask microsoft-excel
 brew install --cask visual-studio-code
 
 # Core casks
-brew install --cask --appdir="~/Applications" iterm2
 brew install --cask --appdir="~/Applications" java
+brew install --cask --appdir="~/Applications" iterm2
 
 # Development tool casks
 brew install --cask --appdir="/Applications" sublime-text
@@ -79,22 +79,18 @@ brew install --cask --appdir="/Applications" postico
 #brew install --cask --appdir="/Applications" postman
 
 # Misc casks
-brew install --cask --appdir="/Applications" brave-browser
-brew install --cask --appdir="/Applications" slack
 brew install --cask --appdir="/Applications" zoom
-
-# Docker
-brew install --cask docker
-# brew install boot2docker
+brew install --cask --appdir="/Applications" slack
+brew install --cask --appdir="/Applications" brave-browser
 
 # Terraform
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
 
-# Remove outdated versions from the cellar.
-brew cleanup
-
 # iterm customization
 brew install zsh
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
+
+# Remove outdated versions from the cellar.
+brew cleanup
