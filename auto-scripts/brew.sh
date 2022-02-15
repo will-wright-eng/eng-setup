@@ -93,3 +93,8 @@ brew install hashicorp/tap/terraform
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+# iterm customization
+brew install zsh
+brew install zsh-autosuggestions
+brew install zsh-syntax-highlighting
