@@ -45,7 +45,7 @@ Ideally...
 - downloaded Brave
 - installed BitWarden
 - logged into github
-- added ssh keys
+- added ssh keys ([link](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account))
 - cloned `eng-setup` repo
 - ran `bash single_setup_script.sh`
 
