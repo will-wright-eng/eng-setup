@@ -66,6 +66,7 @@ brew install --cask transmission
 brew install --cask the-unarchiver
 brew install --cask microsoft-word
 brew install --cask microsoft-excel
+brew install --cask google-cloud-sdk
 brew install --cask visual-studio-code
 
 # Core casks

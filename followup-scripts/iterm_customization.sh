@@ -37,11 +37,10 @@ echo "Host ec2
   IdentityFile ~/.ssh/my-aws-key.pem
   Port 22" >> ~/.ssh/config
 
-# extra stuff
-#echo "" >> ~/.zshrc
-#echo "alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc
-#chmod 700 ~/.snowsql/config
-#chmod 700 ~/.aws/config
+# brew install --cask google-cloud-sdk
+echo "
+# google cloud sdk" >> ~/.zshrc
+echo 'source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"' >> ~/.zshrc
 
 ###############################################################################
 # example .zshrc file
@@ -63,3 +62,12 @@ RPROMPT='%*'
 # initalize iterm customizations
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# google cloud sdk
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# extra stuff
+#echo "" >> ~/.zshrc
+#echo "alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql" >> ~/.zshrc
+#chmod 700 ~/.snowsql/config
+#chmod 700 ~/.aws/config

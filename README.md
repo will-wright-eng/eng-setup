@@ -1,5 +1,3 @@
-** project in progress **
-
 # eng-setup
 macOS development environment setup: Easy-to-understand instructions with automated setup scripts for developer tools
 
@@ -10,6 +8,8 @@ macOS development environment setup: Easy-to-understand instructions with automa
 - [Ideal Setup](#setup)
 - [Notes](#notes)
 - [TODO](#todo)
+- [Tree](#tree)
+- [Other Projects](#other-projects)
 
 ## Summary
 
@@ -45,7 +45,7 @@ Ideally...
 - downloaded Brave
 - installed BitWarden
 - logged into github
-- added ssh keys
+- added ssh keys ([link](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account))
 - cloned `eng-setup` repo
 - ran `bash single_setup_script.sh`
 
@@ -85,6 +85,8 @@ $ git config --global user.email johndoe@example.com
 	- Terminal/Scrollback lines: Unlimited scrollback
 
 - [iterm prompt fixes](https://www.makeuseof.com/customize-zsh-prompt-macos-terminal/)
+
+- installed [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704?mt=12) via app store
 
 ### 20210910 personal mac reformat notes
 - open safari
@@ -150,6 +152,7 @@ $ git config --global user.email johndoe@example.com
 - forgot about transferring bookmarks over
 - add pre-guide for reformatting computer (cleanlieness of running on a freshly reformatted system --> coneceptually or at a high-level, what are you trying to carry over and what are you trying to leave behind?)
 - ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
+- setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
 
 ## Tree
 ```bash
@@ -169,3 +172,6 @@ $ git config --global user.email johndoe@example.com
 │  └── mconda.sh
 └── single_setup_script.sh
 ```
+
+## Other Projects
+- [What I should install on my Mac?](https://dev.to/gomex/what-i-should-install-on-my-mac-5bbi)
