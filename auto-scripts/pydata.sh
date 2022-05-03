@@ -104,3 +104,4 @@ pip install sqlalchemy
 pip install snowflake-sqlalchemy
 pip install great_expectations
 
+pip3 install haxor-news
