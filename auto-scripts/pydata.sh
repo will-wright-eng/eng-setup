@@ -88,20 +88,21 @@ pip install numpy
 pip install scipy
 pip install matplotlib
 pip install pandas
-pip install sympy
-pip install nose
-pip install unittest2
+# pip install sympy
+# pip install nose
+# pip install unittest2
 pip install seaborn
 pip install scikit-learn
 pip install "ipython[all]"
-pip install bokeh
+# pip install bokeh
 pip install Flask
-pip install mysqlclient
+# pip install mysqlclient
 
 # needed for Sentinel
 pip install pyspark
 pip install sqlalchemy
 pip install snowflake-sqlalchemy
-pip install great_expectations
+# pip install great_expectations
 
-pip3 install haxor-news
+pip install haxor-news
+pip install fastapi
