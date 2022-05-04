@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "starting pydata.sh script..."
 # ~/pydata.sh
 
 # Removed user's cached credentials
@@ -75,6 +75,7 @@ pip install virtualenvwrapper
 touch ~/.zshrc
 echo "alias python='python3'" >> ~/.zshrc
 echo "alias pip='pip3'" >> ~/.zshrc
+soruce ~/.zshrc
 
 echo "------------------------------"
 # echo "Setting up py3-data virtual environment."
@@ -106,3 +107,5 @@ pip install snowflake-sqlalchemy
 
 pip install haxor-news
 pip install fastapi
+
+echo "...pydata.sh script complete"

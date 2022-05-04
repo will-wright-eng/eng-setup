@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "starting aws.sh script"
 # ~/aws.sh
 
 # Removed user's cached credentials

@@ -45,6 +45,7 @@ brew install nmap
 brew install direnv
 echo "" >> ~/.zshrc
 echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+soruce ~/.zshrc
 
 # Install other useful binaries.
 brew install ack
@@ -53,6 +54,7 @@ brew install git
 brew install tree
 brew install htop
 brew install awscli
+brew install thefuck
 brew install awsebcli
 brew install jupyterlab
 

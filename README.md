@@ -2,44 +2,96 @@
 macOS development environment setup: Easy-to-understand instructions with automated setup scripts for developer tools
 
 ## Table of Contents
-
 - [Summary](#summary)
-- [Process Definition](#process-definition)
-- [Ideal Setup](#setup)
-- [Notes](#notes)
+- [Running Setup Script](#running-setup-script)
 - [TODO](#todo)
+Appendix
+- [Notes](#notes)
 - [Tree](#tree)
 - [Other Projects](#other-projects)
 
 ## Summary
-
 The objective of this repo is to run a single script that sets up your new work computer -- thereby minimizing the amount of time it takes you to start doing actual work. 
 
-The software, settings, and preferences that are configured align with standard practices I've identified within the Healthcare Solutions lair but also reflect some of my personal preferences (specifically in the `osx.sh` script). 
+- The software, settings, and preferences reflect my personal development preferences. 
+- Best practice is always to examine the contents of each script before running it on your machine.
+- Where you deem necessary, supplement with content from the original project ([donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)).
 
-Be sure to run through the contents of each script and, where you deem necessary, supplement with content from the original project ([donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)).
+## Running Setup Script
+Assuming a new or reformatted computer...
 
-## Process Definition
-- based on the recent reformatting of my personal computer I'd like to define a process that minimizes the time to setup
+1. install your [browser of choice](https://brave.com/), add the [bitwarden extendion](https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb?hl=en), and login to the extension
+2. [create a public ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent), log in to github, and [add the newly created key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+3. clone this repo locally: `git clone git@github.com:william-cass-wright/eng-setup.git`
+4. run auto-scripts: `$bash single_setup_script.sh`
+5. run followup-scripts manually
 
-1. download Firefox and install bitwarden addon
-2. log in to github and add public ssh key
-3. git clone eng-setup repo
-4. modify and run auto-scripts (brew -> osx -> get-pip -> iterm_customization)
+### Alternatively
+```bash
+curl -L https://github.com/william-cass-wright/eng-setup/zipball/main/ -o eng-setup.zip
+unzip eng-setup.zip
+cd william-cass-wright-eng-setup-9aeaeb2 # or whatever suffix is added
+bash single_setup_script.sh
+```
+...not sure exactly how this process would play out but it seems more concise on the surface
 
-## Ideal Setup
+## TODO
+- uninstall iTunes and iMovie
+- forgot about transferring bookmarks over
+- add pre-guide for reformatting computer (cleanlieness of running on a freshly reformatted system --> coneceptually or at a high-level, what are you trying to carry over and what are you trying to leave behind?)
+- ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
+- setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
+- time setup process
 
-** still in the process of testing, feel free to raise issues or PRs **
-
-Ideally...
-
-1. clone repo
-2. ~~enter secrets into secret folder~~ (TODO)
-3. make script executable `chmod +x single_setup_script.sh`
-4. run script `./single_setup_script.sh`
-5. followup checklist
-
+# Appendix
 ## Notes
+### 20220503 personal macbook pro
+- opened safari
+- downloaded Brave browser
+- added bitwarden extension
+- logged into bitwarden
+- logged into github
+- created ssh keys
+- added keys to github
+- cloned eng-setup repo
+- ran `bash single_setup_script.sh` --> successfully ran brew but failed to run osx, aws, or pydata
+
+- ran `bash osx.sh`
+- restarted computer
+- ran `bash pydata.sh`
+- ran `bash aws.sh`
+
+- ran `bash iterm_customization.sh`
+- ran `bash mconda.sh`
+
+dock modifications
+- [auto-hide](https://discussions.apple.com/thread/5026935): `defaults write com.apple.Dock autohide -bool TRUE; killall Dock`
+- only active apps: `defaults write com.apple.dock static-only -bool true; killall Dock`
+- [auto-hide timer](https://apple.stackexchange.com/questions/33600/how-can-i-make-auto-hide-show-for-the-dock-faster#34097): `defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock`
+- added to osx.sh script
+
+- removed custom prompt from iterm setup
+- rerun iterm customization in parts
+- fixed .zshrc file
+- ohmyzsh overwrites .zshrc file... this needs to be addressed somehow
+
+- added [thefuck](https://github.com/nvbn/thefuck)
+- delare [git globals](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
+```bash
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+```
+
+- iterm Profile stuff
+	- Keys/Key Mappings: fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
+	- Keys/Key Mappings: add alt delete ([link](https://stackoverflow.com/questions/42735929/how-to-delete-a-word-in-iterm-in-mac-os))
+	- General/Working Directory: Reuse previous session's directory
+	- Colors/Color Presets.../Solarized Dark
+	- Colors/Minimum contrast: 20
+	- Terminal/Scrollback lines: Unlimited scrollback
+
+#### SETUP COMPLETED IN APPROXIMATELY 3 HOURS
+
 ### 20210207 wayfair mac setup
 - open safari
 - downloaded Brave
@@ -146,13 +198,6 @@ $ git config --global user.email johndoe@example.com
 - set dock to only show active apps `defaults write com.apple.dock static-only -bool true; killall Dock`
 
 - install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome) Firefox extension
-
-## TODO
-- uninstall iTunes and iMovie
-- forgot about transferring bookmarks over
-- add pre-guide for reformatting computer (cleanlieness of running on a freshly reformatted system --> coneceptually or at a high-level, what are you trying to carry over and what are you trying to leave behind?)
-- ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
-- setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
 
 ## Tree
 ```bash
