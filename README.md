@@ -2,13 +2,14 @@
 macOS development environment setup: Easy-to-understand instructions with automated setup scripts for developer tools
 
 ## Table of Contents
-- [Summary](#summary)
-- [Running Setup Script](#running-setup-script)
-- [TODO](#todo)
-Appendix
-- [Notes](#notes)
-- [Tree](#tree)
-- [Other Projects](#other-projects)
+- eng-setup
+	- [Summary](#summary)
+	- [Running Setup Script](#running-setup-script)
+	- [TODO](#todo)
+- Appendix
+	- [Notes](#notes)
+	- [Tree](#tree)
+	- [Other Projects](#other-projects)
 
 ## Summary
 The objective of this repo is to run a single script that sets up your new work computer -- thereby minimizing the amount of time it takes you to start doing actual work. 
