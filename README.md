@@ -46,29 +46,29 @@ bash single_setup_script.sh
 # Appendix
 ## Notes
 ### 20220503 personal macbook pro
-- opened safari
-- downloaded Brave browser
-- added bitwarden extension
-- logged into bitwarden
-- logged into github
-- created ssh keys
-- added keys to github
-- cloned eng-setup repo
-- ran `bash single_setup_script.sh` --> successfully ran brew but failed to run osx, aws, or pydata
+- part 1.
+	- opened safari
+	- downloaded Brave browser
+	- added bitwarden extension
+	- logged into bitwarden
+	- logged into github
+	- created ssh keys
+	- added keys to github
+	- cloned eng-setup repo
+	- ran `bash single_setup_script.sh` --> successfully ran brew but failed to run osx, aws, or pydata
+- part 2.
+	- ran `bash osx.sh`
+	- restarted computer
+	- ran `bash pydata.sh`
+	- ran `bash aws.sh`
+	- ran `bash iterm_customization.sh`
+	- ran `bash mconda.sh`
 
-- ran `bash osx.sh`
-- restarted computer
-- ran `bash pydata.sh`
-- ran `bash aws.sh`
-
-- ran `bash iterm_customization.sh`
-- ran `bash mconda.sh`
-
-dock modifications
-- [auto-hide](https://discussions.apple.com/thread/5026935): `defaults write com.apple.Dock autohide -bool TRUE; killall Dock`
-- only active apps: `defaults write com.apple.dock static-only -bool true; killall Dock`
-- [auto-hide timer](https://apple.stackexchange.com/questions/33600/how-can-i-make-auto-hide-show-for-the-dock-faster#34097): `defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock`
-- added to osx.sh script
+- dock modifications
+	- [auto-hide](https://discussions.apple.com/thread/5026935): `defaults write com.apple.Dock autohide -bool TRUE; killall Dock`
+	- only active apps: `defaults write com.apple.dock static-only -bool true; killall Dock`
+	- [auto-hide timer](https://apple.stackexchange.com/questions/33600/how-can-i-make-auto-hide-show-for-the-dock-faster#34097): `defaults write com.apple.dock autohide-time-modifier -int 0;killall Dock`
+	- added to osx.sh script
 
 - removed custom prompt from iterm setup
 - rerun iterm customization in parts
