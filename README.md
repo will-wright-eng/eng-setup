@@ -24,26 +24,22 @@ Assuming a new or reformatted computer...
 5. run followup-scripts manually
 6. other manual steps: delare [git globals](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), modify iterm preferences, modify browser preferences, and install final apps manually
 
-### iterm preferences
-- iterm Profile stuff
+- iterm preferences
 	- Keys/Key Mappings: fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
 	- Keys/Key Mappings: add alt delete ([link](https://stackoverflow.com/questions/42735929/how-to-delete-a-word-in-iterm-in-mac-os))
 	- General/Working Directory: Reuse previous session's directory
 	- Colors/Color Presets.../Solarized Dark
 	- Colors/Minimum contrast: 20
 	- Terminal/Scrollback lines: Unlimited scrollback
-
-### browser preferences
-- set Brave preferences
+- browser preferences
 	- autofill address -- off
 	- autofill credit cards -- off
 	- autofill passwords -- off
 	- default search engine -- duckduckgo
-
-### manual app installs
-- installed [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704?mt=12) via app store
-- download [rar expander](http://rarexpander.sourceforge.net/)
-- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome)
+- manual app installs
+	- installed [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704?mt=12) via app store
+	- download [rar expander](http://rarexpander.sourceforge.net/)
+	- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome)
 
 ## TODO
 - uninstall iTunes and iMovie
