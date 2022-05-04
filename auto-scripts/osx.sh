@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "starting osx.sh script"
 # ~/osx.sh — Originally from https://mths.be/osx
 
 # Ask for the administrator password upfront
@@ -7,8 +7,6 @@ sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `osx.sh` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-mkdir ~/repos
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -137,6 +135,13 @@ defaults write com.apple.dock show-process-indicators -bool true
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
+
+# Dock modifications
+defaults write com.apple.dock autohide -bool TRUE
+defaults write com.apple.dock static-only -bool true
+defaults write com.apple.dock autohide-time-modifier -int 0
+
+killall Dock
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -270,4 +275,5 @@ for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
     "Transmission" "Twitter" "iCal"; do
     killall "${app}" > /dev/null 2>&1
 done
+
 echo "Done. Note that some of these changes require a logout/restart of your OS to take effect.  At a minimum, be sure to restart your Terminal."
