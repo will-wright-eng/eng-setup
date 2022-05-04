@@ -2,14 +2,10 @@
 macOS development environment setup: Easy-to-understand instructions with automated setup scripts for developer tools
 
 ## Table of Contents
-- eng-setup
-	- [Summary](#summary)
-	- [Running Setup Script](#running-setup-script)
-	- [TODO](#todo)
-- Appendix
-	- [Notes](#notes)
-	- [Tree](#tree)
-	- [Other Projects](#other-projects)
+- [Summary](#summary)
+- [Running Setup Script](#running-setup-script)
+- [TODO](#todo)
+- [Appendix](#appendix)
 
 ## Summary
 The objective of this repo is to run a single script that sets up your new work computer -- thereby minimizing the amount of time it takes you to start doing actual work. 
@@ -26,15 +22,28 @@ Assuming a new or reformatted computer...
 3. clone this repo locally: `git clone git@github.com:william-cass-wright/eng-setup.git`
 4. run auto-scripts: `$bash single_setup_script.sh`
 5. run followup-scripts manually
+6. other manual steps: delare [git globals](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), modify iterm preferences, modify browser preferences, and install final apps manually
 
-### Alternatively
-```bash
-curl -L https://github.com/william-cass-wright/eng-setup/zipball/main/ -o eng-setup.zip
-unzip eng-setup.zip
-cd william-cass-wright-eng-setup-9aeaeb2 # or whatever suffix is added
-bash single_setup_script.sh
-```
-...not sure exactly how this process would play out but it seems more concise on the surface
+### iterm preferences
+- iterm Profile stuff
+	- Keys/Key Mappings: fix alt key in iterm2 ([link](https://www.clairecodes.com/blog/2018-10-15-making-the-alt-key-work-in-iterm2/))
+	- Keys/Key Mappings: add alt delete ([link](https://stackoverflow.com/questions/42735929/how-to-delete-a-word-in-iterm-in-mac-os))
+	- General/Working Directory: Reuse previous session's directory
+	- Colors/Color Presets.../Solarized Dark
+	- Colors/Minimum contrast: 20
+	- Terminal/Scrollback lines: Unlimited scrollback
+
+### browser preferences
+- set Brave preferences
+	- autofill address -- off
+	- autofill credit cards -- off
+	- autofill passwords -- off
+	- default search engine -- duckduckgo
+
+### manual app installs
+- installed [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704?mt=12) via app store
+- download [rar expander](http://rarexpander.sourceforge.net/)
+- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome)
 
 ## TODO
 - uninstall iTunes and iMovie
@@ -44,8 +53,7 @@ bash single_setup_script.sh
 - setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
 - time setup process
 
-# Appendix
-## Notes
+## Appendix
 ### 20220503 personal macbook pro
 - part 1.
 	- opened safari
@@ -90,6 +98,8 @@ $ git config --global user.email johndoe@example.com
 	- Colors/Color Presets.../Solarized Dark
 	- Colors/Minimum contrast: 20
 	- Terminal/Scrollback lines: Unlimited scrollback
+
+- increase tracking speed of track pad and mouse
 
 #### SETUP COMPLETED IN APPROXIMATELY 3 HOURS
 
@@ -200,7 +210,7 @@ $ git config --global user.email johndoe@example.com
 
 - install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome) Firefox extension
 
-## Tree
+### Tree
 ```bash
 %tree --filelimit 10
 .
@@ -219,5 +229,14 @@ $ git config --global user.email johndoe@example.com
 └── single_setup_script.sh
 ```
 
-## Other Projects
+### Other Projects
 - [What I should install on my Mac?](https://dev.to/gomex/what-i-should-install-on-my-mac-5bbi)
+
+### Alternative to inital setup
+```bash
+curl -L https://github.com/william-cass-wright/eng-setup/zipball/main/ -o eng-setup.zip
+unzip eng-setup.zip
+cd william-cass-wright-eng-setup-9aeaeb2 # or whatever suffix is added
+bash single_setup_script.sh
+```
+...not sure exactly how this process would play out but it seems more concise on the surface
