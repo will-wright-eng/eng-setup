@@ -18,7 +18,7 @@ The objective of this repo is to run a single script that sets up your new work 
 Assuming a new or reformatted computer...
 
 1. install your [browser of choice](https://brave.com/), add the [bitwarden extendion](https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb?hl=en), and login to the extension
-2. [create a public ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent), log in to github, and [add the newly created key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+2. [create a public ssh key & add it to ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent), log in to github, and [add the newly created key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 3. clone this repo locally: `git clone git@github.com:william-cass-wright/eng-setup.git`
 4. run auto-scripts: `$bash single_setup_script.sh`
 5. run followup-scripts manually
@@ -42,12 +42,20 @@ Assuming a new or reformatted computer...
 	- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome)
 
 ## TODO
-- uninstall iTunes and iMovie
+### Random
+- develop more sophisticated bash scripts that address failure modes and eleminate repetition (DRY)
+- uninstall iTunes and iMovie, along with respective auto-update checks
 - forgot about transferring bookmarks over
 - add pre-guide for reformatting computer (cleanlieness of running on a freshly reformatted system --> coneceptually or at a high-level, what are you trying to carry over and what are you trying to leave behind?)
 - ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
 - setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
 - time setup process
+
+### Transfer utility
+- command line utility that asks which project in `/repos/` you'd like to retain
+- automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager
+- reconstruct `/repos/` directory, containing active projects, on new machine
+- save cli reposonses as json (for potential use as an input object)
 
 ## Appendix
 ### 20220503 personal macbook pro
@@ -94,10 +102,12 @@ $ git config --global user.email johndoe@example.com
 	- Colors/Color Presets.../Solarized Dark
 	- Colors/Minimum contrast: 20
 	- Terminal/Scrollback lines: Unlimited scrollback
-
 - increase tracking speed of track pad and mouse
 
-#### SETUP COMPLETED IN APPROXIMATELY 3 HOURS
+**SETUP COMPLETED IN APPROXIMATELY 3 HOURS**
+
+other notes
+- cloned active projects (--> wouldn't it be great if there were a command line tool to retain active projects or passwords you'd like to retain?)
 
 ### 20210207 wayfair mac setup
 - open safari
