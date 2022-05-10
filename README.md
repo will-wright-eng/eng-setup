@@ -55,12 +55,15 @@ Assuming a new or reformatted computer...
 - ideaology on how an operating system should run? setting things up so that you don't have to think about them (interruptions, workflow, aesthetics, function before form... but also form)
 - setup Brewfile (eg [link](https://github.com/gomex/mac-setup/blob/master/Brewfile))
 - time setup process
+- look into other IT automation tools, such as [`Ansible`](https://docs.ansible.com/ansible/latest/user_guide/index.html#getting-started) ([for example](https://github.com/geerlingguy/mac-dev-playbook))
+- **autogenerate repo using cli tool, then that repo is custom setup for the system transfer over to the new mac?!!!**
 
 ### Transfer utility
 - command line utility that asks which project in `/repos/` you'd like to retain
 - automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager
 - reconstruct `/repos/` directory, containing active projects, on new machine
 - save cli reposonses as json (for potential use as an input object)
+- bundle `.sublime-package` files within `/Library/Application Support/Sublime Text/Installed Packages` directory (how much of an OS's performance can be captured as files... how to build a mac os image?)
 
 ## Appendix
 ### 20220503 personal macbook pro
