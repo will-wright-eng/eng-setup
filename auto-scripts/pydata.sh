@@ -14,6 +14,7 @@ echo "Setting up pip."
 # source: https://stackoverflow.com/questions/17271319/how-do-i-install-pip-on-macos-or-os-x
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
+rm get-pip.py
 
 ###############################################################################
 # Virtual Enviroments                                                         #
