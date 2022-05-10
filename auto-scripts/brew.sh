@@ -79,7 +79,7 @@ brew install --cask --appdir="~/Applications" iterm2
 brew install --cask --appdir="/Applications" sublime-text
 brew install --cask --appdir="/Applications" macdown
 brew install --cask --appdir="/Applications" postico
-#brew install --cask --appdir="/Applications" postman
+brew install --cask --appdir="/Applications" postman
 
 # Misc casks
 brew install --cask --appdir="/Applications" zoom
