@@ -40,6 +40,11 @@ Assuming a new or reformatted computer...
 	- installed [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704?mt=12) via app store
 	- download [rar expander](http://rarexpander.sourceforge.net/)
 	- install [ByPass Paywall](https://github.com/iamadamdev/bypass-paywalls-chrome)
+- sublime text package control
+	- Dockerfile Syntax Highlighting
+	- FileIcons
+	- Jinja2
+	- SqlBeautifier
 
 ## TODO
 - uninstall iTunes and iMovie
