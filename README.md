@@ -43,9 +43,10 @@ Assuming a new or reformatted computer...
 - sublime text package control
 	- install Package Control (`ctl`+`shift`+`p`)
 	- Dockerfile Syntax Highlighting
-	- FileIcons
+	- A File Icon
 	- Jinja2
 	- SqlBeautifier
+	- MarkdownPreview
 
 ## TODO
 ### Random
