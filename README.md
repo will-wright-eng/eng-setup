@@ -65,11 +65,16 @@ Assuming a new or reformatted computer...
 - **autogenerate repo using cli tool, then that repo is custom setup for the system transfer over to the new mac?!!!**
 
 ### Transfer utility
-- command line utility that asks which project in `/repos/` you'd like to retain
-- automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager
-- reconstruct `/repos/` directory, containing active projects, on new machine
+**what config files and data can be transferred between computers without copying over the entire file system**
+- directories
+	- dot config directories at $HOME
+	- Sublime Text package directory
+	- bundle `.sublime-package` files within `/Library/Application Support/Sublime Text/Installed Packages` directory (how much of an OS's performance can be captured as files... how to build a mac os image?)
+- repos
+	- command line utility that asks which project in `/repos/` you'd like to retain
+	- reconstruct `/repos/` directory, containing active projects, on new machine
 - save cli reposonses as json (for potential use as an input object)
-- bundle `.sublime-package` files within `/Library/Application Support/Sublime Text/Installed Packages` directory (how much of an OS's performance can be captured as files... how to build a mac os image?)
+- ~automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager~
 
 ## Appendix
 ### Tree
