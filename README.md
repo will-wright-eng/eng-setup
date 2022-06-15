@@ -75,6 +75,8 @@ Assuming a new or reformatted computer...
 	- reconstruct `/repos/` directory, containing active projects, on new machine
 - save cli reposonses as json (for potential use as an input object)
 - ~automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager~
+- record system state in 'transfer report'
+	- command line tools `system_profiler` and `sysctl` to record state of hardware and software
 
 ## Appendix
 ### Tree
