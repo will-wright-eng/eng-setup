@@ -49,6 +49,7 @@ soruce ~/.zshrc
 
 # Install other useful binaries.
 brew install ack
+brew install act
 brew install git
 # brew install gh
 brew install tree
