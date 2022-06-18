@@ -50,6 +50,7 @@ Assuming a new or reformatted computer...
 		- SqlBeautifier
 		- MarkdownPreview
 		- LiveReload (enable package and simple reload)
+		- [jsFormat](https://stackoverflow.com/questions/34896840/sublime-text-json-formatter-shortcut) --> set default key binding
 	- [retrieve Sublime Text license key](https://www.sublimetext.com/retrieve_key) then copy/paste it by following `Help/Enter License` in application... or just search "Sublime Text License Key" in your email because you've done this a few times
 
 ## TODO
