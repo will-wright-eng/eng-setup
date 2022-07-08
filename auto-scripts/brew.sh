@@ -27,7 +27,6 @@ brew install wget #--with-iri
 # Install Python
 brew install python
 brew install python3
-# brew install apache-spark
 
 # Install more recent versions of some OS X tools.
 brew install vim #--override-system-vi
@@ -38,21 +37,14 @@ brew install openssh
 brew install binutils
 brew install nmap
 
-# Komodo stack
-#brew install --cask snowflake-snowsql
-#brew install gimme-aws-creds
-
-brew install direnv
-echo "" >> ~/.zshrc
-echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-soruce ~/.zshrc
-
 # Install other useful binaries.
 brew install ack
+brew install act
 brew install git
-# brew install gh
 brew install tree
 brew install htop
+brew install make
+brew install direnv
 brew install awscli
 brew install thefuck
 brew install awsebcli

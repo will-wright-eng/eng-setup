@@ -50,6 +50,7 @@ Assuming a new or reformatted computer...
 		- SqlBeautifier
 		- MarkdownPreview
 		- LiveReload (enable package and simple reload)
+		- [jsFormat](https://stackoverflow.com/questions/34896840/sublime-text-json-formatter-shortcut) --> set default key binding
 	- [retrieve Sublime Text license key](https://www.sublimetext.com/retrieve_key) then copy/paste it by following `Help/Enter License` in application... or just search "Sublime Text License Key" in your email because you've done this a few times
 
 ## TODO
@@ -65,11 +66,18 @@ Assuming a new or reformatted computer...
 - **autogenerate repo using cli tool, then that repo is custom setup for the system transfer over to the new mac?!!!**
 
 ### Transfer utility
-- command line utility that asks which project in `/repos/` you'd like to retain
-- automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager
-- reconstruct `/repos/` directory, containing active projects, on new machine
+**what config files and data can be transferred between computers without copying over the entire file system**
+- directories
+	- dot config directories at $HOME
+	- Sublime Text package directory
+	- bundle `.sublime-package` files within `/Library/Application Support/Sublime Text/Installed Packages` directory (how much of an OS's performance can be captured as files... how to build a mac os image?)
+- repos
+	- command line utility that asks which project in `/repos/` you'd like to retain
+	- reconstruct `/repos/` directory, containing active projects, on new machine
 - save cli reposonses as json (for potential use as an input object)
-- bundle `.sublime-package` files within `/Library/Application Support/Sublime Text/Installed Packages` directory (how much of an OS's performance can be captured as files... how to build a mac os image?)
+- ~automatically detect environment variables, passowords, or locally stored secrets and push them to AWS secretes manager~
+- record system state in 'transfer report'
+	- command line tools `system_profiler` and `sysctl` to record state of hardware and software
 
 ## Appendix
 ### Tree
