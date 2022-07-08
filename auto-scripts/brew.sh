@@ -54,6 +54,7 @@ brew install git
 # brew install gh
 brew install tree
 brew install htop
+brew install make
 brew install awscli
 brew install thefuck
 brew install awsebcli
