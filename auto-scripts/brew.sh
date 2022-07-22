@@ -41,6 +41,7 @@ brew install nmap
 brew install ack
 brew install act
 brew install git
+brew install bat
 brew install tree
 brew install htop
 brew install make

@@ -1,6 +1,12 @@
 # eng-setup
 macOS development environment setup: Easy-to-understand instructions with automated setup scripts for developer tools
 
+**work in progress; developing in public**
+- please see some of these other more mature projects instead
+	- [sobolevn/dotfiles](https://github.com/sobolevn/dotfiles)
+	- [donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)
+	- [mlent/dotfiles](https://github.com/mlent/dotfiles)
+
 ## Table of Contents
 - [Summary](#summary)
 - [Running Setup Script](#running-setup-script)
@@ -12,7 +18,7 @@ The objective of this repo is to run a single script that sets up your new work 
 
 - The software, settings, and preferences reflect my personal development preferences. 
 - Best practice is always to examine the contents of each script before running it on your machine.
-- Where you deem necessary, supplement with content from the original project ([donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)) and inspired by others ([mlent/dotfiles](https://github.com/mlent/dotfiles)). 
+- Based on [donnemartin/dev-setup](https://github.com/donnemartin/dev-setup) and inspired by [mlent/dotfiles](https://github.com/mlent/dotfiles)
 
 ## Running Setup Script
 Assuming a new or reformatted computer...
@@ -51,6 +57,7 @@ Assuming a new or reformatted computer...
 		- MarkdownPreview
 		- LiveReload (enable package and simple reload)
 		- [jsFormat](https://stackoverflow.com/questions/34896840/sublime-text-json-formatter-shortcut) --> set default key binding
+		- [TOML](https://packagecontrol.io/packages/TOML)
 	- [retrieve Sublime Text license key](https://www.sublimetext.com/retrieve_key) then copy/paste it by following `Help/Enter License` in application... or just search "Sublime Text License Key" in your email because you've done this a few times
 
 ## TODO

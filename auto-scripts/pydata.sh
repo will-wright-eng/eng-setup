@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+### NOTE ###
+# - refactor this script such that installed python modules are specific to 3.9
+# - add poetry install
+# ?? use poetry system virtualenv ??
+
+
 echo "starting pydata.sh script..."
 # ~/pydata.sh
 

@@ -31,6 +31,7 @@ echo '
 ZSH_THEME="robbyrussell"
 
 # Example format: plugins=(rails git textmate ruby lighthouse)
+# others: https://travis.media/top-10-oh-my-zsh-plugins-for-productive-developers/
 plugins=(git git-prompt)
 
 # Path to your oh-my-zsh installation.
