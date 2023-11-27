@@ -8,11 +8,11 @@ macOS development environment setup: Easy-to-understand instructions with automa
 - [Appendix](#appendix)
 
 ## Summary
-The objective of this repo is to run a single script that sets up your new work computer -- thereby minimizing the amount of time it takes you to start doing actual work. 
+The objective of this repo is to run a single script that sets up your new work computer -- thereby minimizing the amount of time it takes you to start doing actual work.
 
-- The software, settings, and preferences reflect my personal development preferences. 
+- The software, settings, and preferences reflect my personal development preferences.
 - Best practice is always to examine the contents of each script before running it on your machine.
-- Where you deem necessary, supplement with content from the original project ([donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)) and inspired by others ([mlent/dotfiles](https://github.com/mlent/dotfiles)). 
+- Where you deem necessary, supplement with content from the original project ([donnemartin/dev-setup](https://github.com/donnemartin/dev-setup)) and inspired by others ([mlent/dotfiles](https://github.com/mlent/dotfiles)).
 
 ## Running Setup Script
 Assuming a new or reformatted computer...
