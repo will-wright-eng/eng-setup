@@ -9,37 +9,37 @@ converting this mess of bash scripts (see archive) into an ansible install
 
 1. install homebrew
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
+    ```bash
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    ```
 
 2. install ansible
 
-```bash
-brew install ansible
-```
+    ```bash
+    brew install ansible
+    ```
 
 3. run the playbooks
 
-```bash
-ansible-playbook ansible-mac-setup/main.yml -i "localhost,"
-ansible-playbook ansible-mac-setup/macos.yml -i "localhost,"
-```
+    ```bash
+    ansible-playbook ansible-mac-setup/main.yml -i "localhost,"
+    ansible-playbook ansible-mac-setup/macos.yml -i "localhost,"
+    ```
 
 4. install browser extensions
 
-```bash
-conda create -n ansible-mac-setup python=3.12 -y
-conda activate ansible-mac-setup
-python -m pip install selenium
-python browser-extensions.py
-```
+    ```bash
+    conda create -n ansible-mac-setup python=3.12 -y
+    conda activate ansible-mac-setup
+    python -m pip install selenium
+    python browser-extensions.py
+    ```
 
 5. [install iterm2 profile](https://stackoverflow.com/a/66923620/14343465)
 
 6. set global git configs
 
-```bash
-git config --global user.name "John Doe"
-git config --global user.email johndoe@example.com
-```
+    ```bash
+    git config --global user.name "John Doe"
+    git config --global user.email johndoe@example.com
+    ```
