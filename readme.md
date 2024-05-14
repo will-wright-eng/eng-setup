@@ -36,3 +36,10 @@ python browser-extensions.py
 ```
 
 5. [install iterm2 profile](https://stackoverflow.com/a/66923620/14343465)
+
+6. set global git configs
+
+```bash
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+```
