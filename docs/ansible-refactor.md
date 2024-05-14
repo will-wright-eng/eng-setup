@@ -1,6 +1,9 @@
+# Ansible Refactor
+
 For a simple Ansible project to set up a macOS software development computer, you can use a streamlined directory structure. Here's an example:
 
-### Directory Structure
+## Directory Structure
+
 ```
 ansible-macos-setup/
 ├── ansible.cfg
@@ -22,7 +25,8 @@ ansible-macos-setup/
 
 ### Example Files
 
-#### `ansible.cfg`
+### `ansible.cfg`
+
 ```ini
 [defaults]
 inventory = inventory
@@ -30,12 +34,14 @@ host_key_checking = False
 retry_files_enabled = False
 ```
 
-#### `inventory`
+### `inventory`
+
 ```ini
 localhost ansible_connection=local
 ```
 
-#### `group_vars/all.yml`
+### `group_vars/all.yml`
+
 ```yaml
 # Global variables can be defined here
 homebrew_packages:
@@ -47,7 +53,8 @@ homebrew_packages:
   - google-chrome
 ```
 
-#### `roles/common/tasks/main.yml`
+### `roles/common/tasks/main.yml`
+
 ```yaml
 ---
 - name: Ensure Xcode Command Line Tools are installed
@@ -55,7 +62,8 @@ homebrew_packages:
     state: present
 ```
 
-#### `roles/homebrew/tasks/main.yml`
+### `roles/homebrew/tasks/main.yml`
+
 ```yaml
 ---
 - name: Install Homebrew
@@ -70,12 +78,14 @@ homebrew_packages:
   loop: "{{ homebrew_packages }}"
 ```
 
-#### `roles/homebrew/vars/main.yml`
+### `roles/homebrew/vars/main.yml`
+
 ```yaml
 # This file can include any specific variables for the homebrew role
 ```
 
-#### `playbook.yml`
+### `playbook.yml`
+
 ```yaml
 ---
 - hosts: localhost
@@ -84,7 +94,8 @@ homebrew_packages:
     - homebrew
 ```
 
-#### `README.md`
+### `README.md`
+
 ```markdown
 # macOS Development Environment Setup
 
@@ -93,23 +104,25 @@ This Ansible playbook sets up a macOS development environment with essential too
 ## Usage
 
 1. Install Ansible:
-   ```sh
-   pip install ansible
-   ```
+
+    ```sh
+    pip install ansible
+    ```
 
 2. Clone this repository:
-   ```sh
-   git clone <repository_url>
-   cd ansible-macos-setup
-   ```
+
+    ```sh
+    git clone <repository_url>
+    cd ansible-macos-setup
+    ```
 
 3. Run the playbook:
-   ```sh
-   ansible-playbook playbook.yml
-   ```
+
+    ```sh
+    ansible-playbook playbook.yml
+    ```
 
 This playbook will install Xcode Command Line Tools and Homebrew, and then use Homebrew to install various packages and applications specified in `group_vars/all.yml`.
-```
 
 ### Running the Playbook
 
