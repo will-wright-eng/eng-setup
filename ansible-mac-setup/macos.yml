@@ -1,0 +1,60 @@
+---
+- name: Configure macOS settings
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  become: no
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3.12
+
+  vars:
+    home_dir: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    - name: General UI/UX settings
+      community.general.osx_defaults:
+        domain: "{{ item.domain }}"
+        key: "{{ item.key }}"
+        type: "{{ item.type }}"
+        value: "{{ item.value }}"
+      loop:
+        - { domain: 'com.apple.SoftwareUpdate', key: 'ScheduleFrequency', type: 'int', value: 1 }
+        - { domain: 'NSGlobalDomain', key: 'NSAutomaticQuoteSubstitutionEnabled', type: 'bool', value: false }
+        - { domain: 'NSGlobalDomain', key: 'NSAutomaticDashSubstitutionEnabled', type: 'bool', value: false }
+        - { domain: 'com.apple.BluetoothAudioAgent', key: 'Apple Bitpool Min (editable)', type: 'int', value: 40 }
+        - { domain: 'NSGlobalDomain', key: 'NSAutomaticSpellingCorrectionEnabled', type: 'bool', value: false }
+        - { domain: 'com.apple.screencapture', key: 'location', type: 'string', value: "{{ home_dir }}/Pictures/Screenshots" }
+        - { domain: 'com.apple.screencapture', key: 'type', type: 'string', value: 'png' }
+        - { domain: 'com.apple.screencapture', key: 'disable-shadow', type: 'bool', value: true }
+
+    - name: Finder settings
+      community.general.osx_defaults:
+        domain: 'com.apple.finder'
+        key: "{{ item.key }}"
+        type: 'bool'
+        value: "{{ item.value }}"
+      loop:
+        - { key: 'ShowExternalHardDrivesOnDesktop', value: true }
+        - { key: 'ShowHardDrivesOnDesktop', value: true }
+        - { key: 'ShowMountedServersOnDesktop', value: true }
+        - { key: 'ShowRemovableMediaOnDesktop', value: true }
+        - { key: 'AppleShowAllFiles', value: true }
+        - { key: 'AppleShowAllExtensions', value: true }
+        - { key: 'ShowPathbar', value: true }
+        - { key: 'QLEnableTextSelection', value: true }
+        - { key: 'OpenWindowForNewRemovableDisk', value: true }
+
+    - name: Kill affected applications
+      command: "killall {{ item }}"
+      loop:
+        - "Activity Monitor"
+        - "Finder"
+        - "Dock"
+        - "SystemUIServer"
+        - "Terminal"
+      ignore_errors: yes
+
+  post_tasks:
+    - name: Final cleanup and notice
+      debug:
+        msg: "Done. Note that some of these changes require a logout/restart of your OS to take effect. At a minimum, be sure to restart your Terminal."

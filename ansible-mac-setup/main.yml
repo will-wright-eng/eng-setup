@@ -1,0 +1,112 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  become: no
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3.12
+
+  tasks:
+  - name: Install Homebrew packages
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - git
+      - node
+      - python3
+      - rectangle
+      - bat
+      - gh
+      - tree
+      - make
+      - thefuck
+      - btop
+      - dnsmasq
+      - rar
+      - google-cloud-sdk
+      - openssh
+      # - docker-compose # included with docker cask
+    ignore_errors: yes
+    tags:
+      - brew-packages
+
+  - name: Install Homebrew cask applications
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - iterm2
+      - google-chrome
+      - postman
+      - docker
+      - minconda
+      - slack
+    ignore_errors: yes
+    tags:
+      - brew-casks
+
+  - name: Install Oh My Zsh
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    args:
+      executable: /bin/bash
+    tags:
+      - oh-my-zsh
+
+  - name: Configure Oh My Zsh
+    blockinfile:
+      path: ~/.zshrc
+      block: |
+        # ZSH
+        ZSH_THEME="robbyrussell"
+        plugins=(git git-prompt web-search jsontools)
+        export ZSH="$HOME/.oh-my-zsh"
+        source $ZSH/oh-my-zsh.sh
+        source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+        RPROMPT='%*'
+
+        # ALIAS
+        source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+        eval $(thefuck --alias)
+
+        alias cat='bat --paging=never'
+        alias list='ls -lah'
+        alias ll='ls -alF'
+        alias la='ls -A'
+        alias l='ls -CF'
+        alias zshconfig="mate ~/.zshrc"
+        alias ohmyzsh="mate ~/.oh-my-zsh"
+
+        source ~/.secrets
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+      create: yes
+      backup: yes
+    tags:
+      - zsh-config
+
+  - name: Install Chrome extension using Selenium
+    command: python browser-extensions.py
+
+post_tasks:
+  - name: Final cleanup and notice
+    tags: slack
+    debug:
+      msg: |
+        Done. Note that some of these changes require a logout/restart of your OS to take effect. At a minimum, be sure to restart your Terminal.
+
+        #################
+        ## conda setup ##
+        #################
+
+        Please run the following to setup your shell:
+            conda init "$(basename "${SHELL}")"
+
+        Alternatively, manually add the following to your shell init:
+            eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+        
+        In order to remove (base) from default shell:
+        `conda config --set auto_activate_base false`
+        - 
+    delegate_to: localhost
