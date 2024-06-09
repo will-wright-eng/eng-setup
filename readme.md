@@ -28,12 +28,16 @@ converting this mess of bash scripts (see archive) into an ansible install
 
 4. install browser extensions
 
-    ```bash
-    conda create -n ansible-mac-setup python=3.12 -y
-    conda activate ansible-mac-setup
-    python -m pip install selenium
-    python browser-extensions.py
-    ```
+  ```bash
+  conda create -n ansible-mac-setup python=3.12 -y
+  conda activate ansible-mac-setup
+  ```
+
+  ```bash
+  ## TOOD: fix this
+  python -m pip install selenium
+  python browser-extensions.py
+  ```
 
 5. [install iterm2 profile](https://stackoverflow.com/a/66923620/14343465)
 
