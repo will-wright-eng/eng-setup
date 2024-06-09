@@ -31,6 +31,10 @@ ansible-playbook ansible-mac-setup/macos.yml -i "localhost,"
 ```bash
 conda create -n ansible-mac-setup python=3.12 -y
 conda activate ansible-mac-setup
+```
+
+```bash
+## TOOD: fix this
 python -m pip install selenium
 python browser-extensions.py
 ```
