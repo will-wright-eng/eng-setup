@@ -27,7 +27,8 @@
       - google-cloud-sdk
       - openssh
       - pre-commit
-      # - docker-compose # included with docker cask
+      - jq
+      - ack
     ignore_errors: yes
     tags:
       - brew-packages
@@ -43,6 +44,9 @@
       - docker
       - minconda
       - slack
+      - zoom
+      - raycast
+      - arc
     ignore_errors: yes
     tags:
       - brew-casks
