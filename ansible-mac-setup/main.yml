@@ -29,6 +29,8 @@
       - pre-commit
       - jq
       - ack
+      - go
+      - opentofu
     ignore_errors: yes
     tags:
       - brew-packages
@@ -39,14 +41,14 @@
       state: present
     with_items:
       - iterm2
-      - google-chrome
+      - brave-browser
       - postman
       - docker
       - minconda
       - slack
       - zoom
       - raycast
-      - arc
+      - modern-csv
     ignore_errors: yes
     tags:
       - brew-casks
