@@ -47,3 +47,7 @@ converting this mess of bash scripts (see archive) into an ansible install
     git config --global user.name "John Doe"
     git config --global user.email johndoe@example.com
     ```
+
+## other
+
+- [macos - How to turn off all animations on OS X - Ask Different](https://apple.stackexchange.com/questions/14001/how-to-turn-off-all-animations-on-os-x)
