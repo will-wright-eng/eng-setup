@@ -41,6 +41,7 @@
       state: present
     with_items:
       - iterm2
+      - alacritty
       - brave-browser
       - postman
       - docker
