@@ -24,10 +24,13 @@ def main():
         print(f'https://chrome.google.com/webstore/detail/{extension_id}')
 
 def _main():
-    # Setup Chrome options
+    # Setup Brave options
     chrome_options = webdriver.ChromeOptions()
     user = os.environ.get('USER')
-    chrome_options.add_argument(f"--user-data-dir=/Users/{user}/Library/Application Support/Google/Chrome/Default")
+    chrome_options.add_argument(f"--user-data-dir=/Users/{user}/Library/Application Support/BraveSoftware/Brave-Browser/Default")
+
+    # Optional: If you need to specify the Brave binary location
+    chrome_options.binary_location = "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
 
     # Path to your ChromeDriver
     p = Path('.').resolve() / 'chromedriver_mac64' / 'chromedriver'
@@ -47,7 +50,7 @@ def _main():
     for extension_id in extension_ids:
         # Go to the extension page
         driver.get(f'https://chrome.google.com/webstore/detail/{extension_id}')
-        
+
         # Wait for the page to load
         time.sleep(5)  # Adjust the sleep time as needed
 
@@ -61,12 +64,12 @@ def _main():
             # Trigger the installation process
             install_button = driver.find_element(By.XPATH, '//button[contains(text(), "Add to Chrome")]')
             install_button.click()
-            
+
             # Confirm the installation in the dialog
             time.sleep(2)  # Adjust the sleep time as needed
             confirm_button = driver.find_element(By.XPATH, '//button[contains(text(), "Add extension")]')
             confirm_button.click()
-            
+
             # Wait for the installation to complete
             time.sleep(5)  # Adjust the sleep time as needed
         except Exception as e:
