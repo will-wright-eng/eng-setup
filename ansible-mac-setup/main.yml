@@ -94,10 +94,7 @@
     tags:
       - zsh-config
 
-  - name: Install Chrome extension using Selenium
-    command: python browser-extensions.py
-
-post_tasks:
+  post_tasks:
   - name: Final cleanup and notice
     tags: slack
     debug:
@@ -118,3 +115,8 @@ post_tasks:
         `conda config --set auto_activate_base false`
         -
     delegate_to: localhost
+
+  - name: Install Chrome extension using Selenium
+    command: conda init "$(basename "${SHELL}")"
+    command: python3 -m pip install selenium
+    command: python3 browser-extensions.py
