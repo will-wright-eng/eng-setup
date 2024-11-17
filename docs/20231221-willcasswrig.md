@@ -37,18 +37,18 @@ brew install brave
 ```
 
 - settings/ search: 'save for later' / set to false
-	- credit cards, addresses, passwords
+   	- credit cards, addresses, passwords
 - extensions
-	- dark viewer
-	- bitwarden
-	- rescuetime
-	- tab sorter
-	- tabs to clipboard
-	- tracking extension
-	- duckduckgo
-	- ublock origin
-	- wayback machine
-	- wappalyzer
+   	- dark viewer
+   	- bitwarden
+   	- rescuetime
+   	- tab sorter
+   	- tabs to clipboard
+   	- tracking extension
+   	- duckduckgo
+   	- ublock origin
+   	- wayback machine
+   	- wappalyzer
 
 ## Brew
 
@@ -198,4 +198,3 @@ vlc
 # warp
 zoom
 ```
-

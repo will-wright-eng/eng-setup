@@ -1,17 +1,18 @@
 import os
+import time
 import logging
-import requests
 import zipfile
 import platform
-import time
-from pathlib import Path
 from typing import Optional
+from pathlib import Path
 from dataclasses import dataclass
+
+import requests
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 @dataclass

@@ -3,11 +3,11 @@
 default_language_version:
   python: python3.11
 
-default_stages: [commit, push]
+default_stages: [pre-commit, pre-push]
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
   # - id: check-yaml
   #   exclude: \.j2.(yaml|yml)$|\.(yaml|yml).j2$
@@ -22,7 +22,7 @@ repos:
 #       additional_dependencies:
 #         - jmespath
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.40.0
+  rev: v0.42.0
   hooks:
   - id: markdownlint
     args:
@@ -30,7 +30,7 @@ repos:
     verbose: true
     entry: bash -c 'markdownlint "$@" || true' --
 - repo: https://github.com/psf/black
-  rev: 24.4.2
+  rev: 24.10.0
   hooks:
   - id: black
     args:
@@ -48,7 +48,7 @@ repos:
     name: isort (pyi)
     types: [pyi]
 - repo: https://github.com/pycqa/flake8
-  rev: 7.0.0
+  rev: 7.1.1
   hooks:
   - id: flake8
     args: ['--ignore=E999,W504,W503,E501']
