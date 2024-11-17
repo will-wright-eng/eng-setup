@@ -1,4 +1,5 @@
 ### 20220503 personal macbook pro
+
 - part 1.
 	- opened safari
 	- downloaded Brave browser

@@ -31,6 +31,7 @@
       - ack
       - go
       - opentofu
+      - atuin
     ignore_errors: yes
     tags:
       - brew-packages
@@ -88,6 +89,7 @@
         alias ohmyzsh="mate ~/.oh-my-zsh"
 
         source ~/.secrets
+        eval "$(atuin init zsh --disable-up-arrow)"
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
       create: yes
       backup: yes
@@ -118,5 +120,5 @@
 
   - name: Install Chrome extension using Selenium
     command: conda init "$(basename "${SHELL}")"
-    command: python3 -m pip install selenium
+    command: python3 -m pip install selenium requests
     command: python3 browser-extensions.py
