@@ -4,6 +4,24 @@ I converting this mess of bash scripts into an ansible install
 
 ## setup
 
+### make run commmands
+
+use xcode command to install `make`
+
+```bash
+xcode-select --install
+```
+
+make commmands:
+
+```bash
+make install
+make run
+make gitssh
+```
+
+### manual run commands
+
 1. install homebrew
 
 ```bash

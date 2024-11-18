@@ -1,33 +1,33 @@
-.PHONY: install check run setup-homebrew setup-ansible setup-secrets help
+#* Variables
+SHELL := /usr/bin/env bash
 
-# Default target when just running 'make'
-help:
-	@echo "Available targets:"
-	@echo "  install         - Install Homebrew and Ansible"
-	@echo "  check          - Run playbooks in check mode"
-	@echo "  run            - Run playbooks in normal mode"
-	@echo "  setup-homebrew - Install Homebrew only"
-	@echo "  setup-ansible  - Install Ansible only"
+#* Setup
+.PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
+.DEFAULT_GOAL := help
 
-# Install both Homebrew and Ansible
-install: setup-homebrew setup-ansible
+help: ## list make commands
+	@echo ${MAKEFILE_LIST}
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-# Setup Homebrew
-setup-homebrew:
+#* Commands
+install: setup-homebrew setup-apps ## install homebrew and apps
+
+setup-homebrew: ## install homebrew
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 	eval "$$(/opt/homebrew/bin/brew shellenv)"
 
-# Setup Ansible
-setup-ansible:
-	brew install ansible make
+setup-apps: ## install apps
+	brew install ansible
 
-# Run playbooks in check mode
-check:
-	ansible-playbook main.yml -i "localhost," --check --diff
-	ansible-playbook macos.yml -i "localhost," --check --diff
+#* Ansible
+check: ## run playbooks in check mode
+	ansible-playbook ansible/main.yml -i "localhost," --check --diff
+	ansible-playbook ansible/macos.yml -i "localhost," --check --diff
 
-# Run playbooks normally
-run:
-	ansible-playbook ansible-mac-setup/main.yml -i "localhost,"
-	ansible-playbook ansible-mac-setup/macos.yml -i "localhost,"
+run: ## run playbooks normally
+	ansible-playbook ansible/main.yml -i "localhost,"
+	ansible-playbook ansible/macos.yml -i "localhost,"
+
+gitssh: ## setup git ssh
+	bash scripts/setup-github-ssh.sh
