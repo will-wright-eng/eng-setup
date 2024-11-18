@@ -46,3 +46,5 @@ cursor-export-keybindings: ## export cursor keybindings
 
 cursor-import-keybindings: ## import cursor keybindings
 	cp configs/cursor-keybindings.json "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
+
+cursor: cursor-import-extensions cursor-import-keybindings ## setup cursor
