@@ -1,7 +1,4 @@
-eriklynd.json-tools
 hashicorp.terraform
-jkiviluoto.tws
-ms-python.debugpy
 ms-python.python
 ms-python.vscode-pylance
 ms-vscode.makefile-tools
