@@ -3,6 +3,7 @@ import time
 import logging
 import zipfile
 import platform
+import subprocess
 from typing import Optional
 from pathlib import Path
 from dataclasses import dataclass
@@ -96,8 +97,8 @@ class ExtensionInstaller:
         if not self.driver:
             raise RuntimeError("WebDriver not initialized")
 
+        url = Constants.WEBSTORE_URL.format(extension_id)
         try:
-            url = Constants.WEBSTORE_URL.format(extension_id)
             self.logger.info(f"Installing extension: {extension_id}")
             self.logger.debug(f"Navigating to: {url}")
 
@@ -122,11 +123,10 @@ class ExtensionInstaller:
             time.sleep(Constants.WAIT_TIME_INSTALL)
             return True
 
-        except NoSuchElementException as e:
-            self.logger.error(f"Required button not found for {extension_id}", exc_info=True)
-            return False
-        except WebDriverException as e:
-            self.logger.error(f"Failed to install extension {extension_id}", exc_info=True)
+        except (NoSuchElementException, WebDriverException) as e:
+            self.logger.error(f"Failed to install extension {extension_id} -- {str(e)}", exc_info=True)
+            self.logger.info(f"Opening extension URL in browser: {url}")
+            subprocess.run(["open", url], check=True)
             return False
 
     def install_all_extensions(self) -> None:
@@ -159,7 +159,9 @@ class ChromeDriverManager:
         """Get the system key for the ChromeDriver URL"""
         system = platform.system()
         if system == "Darwin":
-            if platform.processor() == "arm":
+            # Use machine() instead of processor() for more reliable architecture detection
+            machine = platform.machine()
+            if machine == "arm64":
                 return "Darwin-arm64"
             return "Darwin-x86_64"
         return system
@@ -266,7 +268,7 @@ def main():
         installer.install_all_extensions()
 
     except Exception as e:
-        logger.error("Application failed", exc_info=True)
+        logger.error(f"Application failed -- {str(e)}", exc_info=True)
         raise
 
 

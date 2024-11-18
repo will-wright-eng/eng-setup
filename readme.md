@@ -19,8 +19,8 @@ brew install ansible
 3. run the playbooks
 
 ```bash
-ansible-playbook ansible-mac-setup/main.yml -i "localhost,"
-ansible-playbook ansible-mac-setup/macos.yml -i "localhost,"
+ansible-playbook ansible/main.yml -i "localhost,"
+ansible-playbook ansible/macos.yml -i "localhost,"
 ```
 
 4. set global git configs

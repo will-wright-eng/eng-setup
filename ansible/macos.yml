@@ -27,6 +27,10 @@
         - { domain: 'com.apple.screencapture', key: 'type', type: 'string', value: 'png' }
         - { domain: 'com.apple.screencapture', key: 'disable-shadow', type: 'bool', value: true }
         - { domain: 'com.apple.dock', key: 'static-only', type: 'bool', value: true }
+        - { domain: 'com.apple.dock', key: 'autohide', type: 'bool', value: true }
+        - { domain: 'com.apple.dock', key: 'autohide-delay', type: 'float', value: 0 }
+        - { domain: 'com.apple.dock', key: 'autohide-time-modifier', type: 'float', value: 0 }
+        - { domain: 'com.apple.controlcenter', key: 'Bluetooth', type: 'int', value: 18 }
 
     - name: Finder settings
       community.general.osx_defaults:
