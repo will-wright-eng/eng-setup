@@ -1,6 +1,6 @@
 # repo rework
 
-converting this mess of bash scripts (see archive) into an ansible install
+I converting this mess of bash scripts into an ansible install
 
 ## setup
 

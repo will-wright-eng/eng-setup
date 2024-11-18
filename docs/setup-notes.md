@@ -1,12 +1,17 @@
-## links
+# setup notes
 
-- [Use AirDrop on your Mac - Apple Support](https://support.apple.com/en-us/102538)
-- [Manual · Tig - Text-mode interface for Git](https://jonas.github.io/tig/doc/manual.html)
-- [Dotfiles Management - mitxela.com](https://mitxela.com/projects/dotfiles_management)
-- [macOS migrations with Brewfile - Open Folder](https://openfolder.sh/macos-migrations-with-brewfile)
-- [commit - git add only modified changes and ignore untracked files - Stack Overflow](https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files)
+a record of my setup process each time I go through a computer reset, so as to imporove and expedite the time-to-coding each time
 
-## reset notes
+## 20231126-setup
+
+### references
+
+- [Managing Multiple Python Versions With pyenv – Real Python](https://realpython.com/intro-to-pyenv/)
+- [macos - Linking pyenv python to homebrew in order to avoid homebrew python@3.8 installation - Stack Overflow](https://stackoverflow.com/questions/62249443/linking-pyenv-python-to-homebrew-in-order-to-avoid-homebrew-python3-8-installat)
+
+## 20231221-willcasswrig
+
+### reset notes
 
 ```bash
 $system_profiler SPHardwareDataType
@@ -30,7 +35,7 @@ Hardware:
       Serial Number (system): ...ML85
 ```
 
-## Browser setup
+### Browser setup
 
 ```bash
 brew install brave
@@ -50,7 +55,7 @@ brew install brave
    	- wayback machine
    	- wappalyzer
 
-## Brew
+### Brew
 
 ```bash
 $brew list | column -t
@@ -197,4 +202,24 @@ transmission
 vlc
 # warp
 zoom
+```
+
+### references
+
+- [Use AirDrop on your Mac - Apple Support](https://support.apple.com/en-us/102538)
+- [Manual · Tig - Text-mode interface for Git](https://jonas.github.io/tig/doc/manual.html)
+- [Dotfiles Management - mitxela.com](https://mitxela.com/projects/dotfiles_management)
+- [macOS migrations with Brewfile - Open Folder](https://openfolder.sh/macos-migrations-with-brewfile)
+- [commit - git add only modified changes and ignore untracked files - Stack Overflow](https://stackoverflow.com/questions/7124726/git-add-only-modified-changes-and-ignore-untracked-files)
+
+## 20231221-ww
+
+### setup notes
+
+- running as media computer for about 6-months
+- mostly used to test out new MacOS and run Brave Browser
+
+```bash
+brew install rectangle
+brew install iterm2
 ```
