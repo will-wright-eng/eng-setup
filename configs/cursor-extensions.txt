@@ -1,0 +1,10 @@
+eriklynd.json-tools
+hashicorp.terraform
+jkiviluoto.tws
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-vscode.makefile-tools
+ms-vscode.sublime-keybindings
+shardulm94.trailing-spaces
+tamasfe.even-better-toml

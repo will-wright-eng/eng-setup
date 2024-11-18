@@ -31,3 +31,18 @@ run: ## run playbooks normally
 
 gitssh: ## setup git ssh
 	bash scripts/setup-github-ssh.sh
+
+cursor-export-extensions: ## export cursor extensions
+	cursor --list-extensions > configs/cursor-extensions.txt
+
+cursor-import-extensions: ## import cursor extensions
+	cat configs/cursor-extensions.txt -p | xargs -n 1 cursor --install-extension
+
+cursor-show-keybindings: ## show cursor keybindings
+	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
+
+cursor-export-keybindings: ## export cursor keybindings
+	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json" > configs/cursor-keybindings.json
+
+cursor-import-keybindings: ## import cursor keybindings
+	cp configs/cursor-keybindings.json "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
