@@ -55,6 +55,7 @@ git config --global user.email johndoe@example.com
 
 - install iterm2 profile
 - import rectangle configs
+- run `cursor` Makefile commands
 
 ### TODO
 
