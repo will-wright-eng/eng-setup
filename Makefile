@@ -31,3 +31,8 @@ run: ## run playbooks normally
 
 gitssh: ## setup git ssh
 	bash scripts/setup-github-ssh.sh
+
+chrome-extensions: ## install chrome extensions
+	conda init "$(basename "${SHELL}")"
+	python3 -m pip install selenium requests
+	python3 browser-extensions.py
