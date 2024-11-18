@@ -7,6 +7,13 @@
     ansible_python_interpreter: /usr/local/bin/python3.12
 
   tasks:
+  - name: Install Oh My Zsh
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    args:
+      executable: /bin/bash
+    tags:
+      - oh-my-zsh
+
   - name: Install Homebrew packages
     homebrew:
       name: "{{ item }}"
@@ -32,6 +39,8 @@
       - go
       - opentofu
       - atuin
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
     ignore_errors: yes
     tags:
       - brew-packages
@@ -42,25 +51,16 @@
       state: present
     with_items:
       - iterm2
-      - alacritty
+      - cursor
       - brave-browser
-      - postman
       - docker
       - minconda
-      - slack
       - zoom
       - raycast
       - modern-csv
     ignore_errors: yes
     tags:
       - brew-casks
-
-  - name: Install Oh My Zsh
-    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    args:
-      executable: /bin/bash
-    tags:
-      - oh-my-zsh
 
   - name: Configure Oh My Zsh
     blockinfile:
@@ -81,8 +81,7 @@
         eval $(thefuck --alias)
 
         alias cat='bat --paging=never'
-        alias list='ls -lah'
-        alias ll='ls -alF'
+        alias ll='ls -lah'
         alias la='ls -A'
         alias l='ls -CF'
         alias zshconfig="mate ~/.zshrc"
@@ -117,8 +116,3 @@
         `conda config --set auto_activate_base false`
         -
     delegate_to: localhost
-
-  - name: Install Chrome extension using Selenium
-    command: conda init "$(basename "${SHELL}")"
-    command: python3 -m pip install selenium requests
-    command: python3 browser-extensions.py
