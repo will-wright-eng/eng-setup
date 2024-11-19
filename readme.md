@@ -56,17 +56,9 @@ git config --global user.email johndoe@example.com
 - install iterm2 profile
 - import rectangle configs
 - run `cursor` Makefile commands
-  - `cursor-import-extensions`
-  - `cursor-import-keybindings`
-
-### TODO
-
-- install browser extensions
-
-```bash
-python -m pip install selenium requests
-python configs/browser-extensions.py
-```
+    - `cursor-import-extensions`
+    - `cursor-import-keybindings`
+- add browswer extensions to brave browser
 
 ## references
 
