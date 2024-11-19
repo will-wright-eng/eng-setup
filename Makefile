@@ -29,22 +29,27 @@ run: ## run playbooks normally
 	ansible-playbook ansible/main.yml -i "localhost,"
 	ansible-playbook ansible/macos.yml -i "localhost,"
 
+#* Scripts
 gitssh: ## setup git ssh
 	bash scripts/setup-github-ssh.sh
 
-cursor-export-extensions: ## export cursor extensions
+extensions: ## install browser extensions
+	python3 scripts/browser-extensions.py
+
+#* Cursor
+cursor-export-extensions: ## [cursor] export extensions
 	cursor --list-extensions > configs/cursor-extensions.txt
 
-cursor-import-extensions: ## import cursor extensions
+cursor-import-extensions: ## [cursor] import extensions
 	cat configs/cursor-extensions.txt -p | xargs -n 1 cursor --install-extension
 
-cursor-show-keybindings: ## show cursor keybindings
+cursor-show-keybindings: ## [cursor] show keybindings
 	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
 
-cursor-export-keybindings: ## export cursor keybindings
+cursor-export-keybindings: ## [cursor] export keybindings
 	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json" > configs/cursor-keybindings.json
 
-cursor-import-keybindings: ## import cursor keybindings
+cursor-import-keybindings: ## [cursor] import keybindings
 	cp configs/cursor-keybindings.json "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
 
-cursor: cursor-import-extensions cursor-import-keybindings ## setup cursor
+cursor: cursor-import-extensions cursor-import-keybindings ## [cursor] run import commands
