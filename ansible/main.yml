@@ -41,6 +41,7 @@
       - atuin
       - zsh-autosuggestions
       - zsh-syntax-highlighting
+      - kubectl
     ignore_errors: yes
     tags:
       - brew-packages
@@ -53,11 +54,11 @@
       - iterm2
       - cursor
       - brave-browser
-      - docker
       - minconda
       - zoom
       - raycast
       - modern-csv
+      - rancher
     ignore_errors: yes
     tags:
       - brew-casks
@@ -116,3 +117,8 @@
         `conda config --set auto_activate_base false`
         -
     delegate_to: localhost
+
+  - name: Install Rye
+    shell: curl -sSf https://rye.astral.sh/get | bash
+    tags:
+      - rye
