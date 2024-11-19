@@ -18,6 +18,7 @@ make commmands:
 make install
 make run
 make gitssh
+make extensions
 ```
 
 ### manual run commands
@@ -59,6 +60,25 @@ git config --global user.email johndoe@example.com
     - `cursor-import-extensions`
     - `cursor-import-keybindings`
 - add browswer extensions to brave browser
+
+### makefile commands
+
+```bash
+help                           list make commands
+install                        install homebrew and apps
+setup-homebrew                 install homebrew
+setup-apps                     install apps
+check                          run playbooks in check mode
+run                            run playbooks normally
+gitssh                         setup git ssh
+extensions                     install browser extensions
+cursor-export-extensions       [cursor] export extensions
+cursor-import-extensions       [cursor] import extensions
+cursor-show-keybindings        [cursor] show keybindings
+cursor-export-keybindings      [cursor] export keybindings
+cursor-import-keybindings      [cursor] import keybindings
+cursor                         [cursor] run import commands
+```
 
 ## references
 
