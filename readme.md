@@ -19,15 +19,15 @@ xcode-select --install
 run the following make commands:
 
 ```bash
-make install
-make run
-make extensions
+make install # installs homebrew and ansible
+make run # runs ansible playbooks
+make extensions # opens browser extension urls in brave browser
 ```
 
-if you need to setup github ssh:
+optional:
 
 ```bash
-make gitssh
+make gitssh # creates new ssh keys and adds them to github
 ```
 
 ### manual run commands
