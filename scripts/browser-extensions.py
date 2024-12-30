@@ -22,6 +22,7 @@ class Constants:
         "fmkadmapgofadopljbjfkapdkoienihi",  # React Developer Tools
         "elglafmpaeiffddlclplkhgkplbdccca",  # Wayback Machine Lookup
         "gppongmhjkpfnbhagpmjfkannfbllamg",  # Wappalyzer
+        "nngceckbapebfimnlniiiahkandclblb",  # Bitwarden
     ]
     WEBSTORE_URL = "https://chrome.google.com/webstore/detail/{}"
     WAIT_TIME_PAGE_LOAD = 5

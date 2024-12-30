@@ -4,13 +4,21 @@
   gather_facts: no
   become: no
   vars:
-    ansible_python_interpreter: /usr/local/bin/python3.12
+    ansible_python_interpreter: /opt/homebrew/bin/python3
 
   tasks:
+  - name: Check if Oh My Zsh is installed
+    stat:
+      path: ~/.oh-my-zsh
+    register: oh_my_zsh_dir
+    tags:
+      - oh-my-zsh
+
   - name: Install Oh My Zsh
     shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     args:
       executable: /bin/bash
+    when: not oh_my_zsh_dir.stat.exists
     tags:
       - oh-my-zsh
 
@@ -19,14 +27,11 @@
       name: "{{ item }}"
       state: present
     with_items:
-      - git
       - node
-      - python3
       - rectangle
       - bat
       - gh
       - tree
-      - make
       - thefuck
       - btop
       - dnsmasq
@@ -51,10 +56,10 @@
       name: "{{ item }}"
       state: present
     with_items:
-      - iterm2
+      - ghostty
       - cursor
       - brave-browser
-      - minconda
+      - miniconda
       - zoom
       - raycast
       - modern-csv
@@ -72,8 +77,8 @@
         plugins=(git git-prompt web-search jsontools)
         export ZSH="$HOME/.oh-my-zsh"
         source $ZSH/oh-my-zsh.sh
-        source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-        source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+        source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
         RPROMPT='%*'
 
@@ -119,6 +124,26 @@
     delegate_to: localhost
 
   - name: Install Rye
-    shell: curl -sSf https://rye.astral.sh/get | bash
+    shell: |
+      curl -sSf https://rye.astral.sh/get -o /tmp/rye-install.sh
+      NONINTERACTIVE=1 RYE_NO_AUTO_INSTALL=1 bash /tmp/rye-install.sh
     tags:
       - rye
+
+  - name: Add Rye to path
+    blockinfile:
+      path: ~/.zshrc
+      block: |
+        # Add Rye to PATH
+        source "$HOME/.rye/env"
+      marker: "# {mark} RYE CONFIG"
+      create: yes
+    tags:
+      - rye
+
+  - name: Install shell-gpt using pip
+    pip:
+      name: shell-gpt
+      state: present
+    tags:
+      - pip-packages

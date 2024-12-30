@@ -1,5 +1,6 @@
 #* Variables
 SHELL := /usr/bin/env bash
+CURSOR_CLI := code
 
 #* Setup
 .PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
@@ -26,8 +27,8 @@ check: ## run playbooks in check mode
 	ansible-playbook ansible/macos.yml -i "localhost," --check --diff
 
 run: ## run playbooks normally
-	ansible-playbook ansible/main.yml -i "localhost,"
-	ansible-playbook ansible/macos.yml -i "localhost,"
+	ansible-playbook ansible/main.yml -i "localhost," || true
+	ansible-playbook ansible/macos.yml -i "localhost," || true
 
 #* Scripts
 gitssh: ## setup git ssh
@@ -38,10 +39,10 @@ extensions: ## install browser extensions
 
 #* Cursor
 cursor-export-extensions: ## [cursor] export extensions
-	cursor --list-extensions > configs/cursor-extensions.txt
+	$(CURSOR_CLI) --list-extensions > configs/cursor-extensions.txt
 
 cursor-import-extensions: ## [cursor] import extensions
-	cat configs/cursor-extensions.txt -p | xargs -n 1 cursor --install-extension
+	cat configs/cursor-extensions.txt -p | xargs -n 1 $(CURSOR_CLI) --install-extension
 
 cursor-show-keybindings: ## [cursor] show keybindings
 	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"

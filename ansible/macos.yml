@@ -5,7 +5,7 @@
   gather_facts: no
   become: no
   vars:
-    ansible_python_interpreter: /usr/local/bin/python3.12
+    ansible_python_interpreter: /opt/homebrew/bin/python3
 
   vars:
     home_dir: "{{ lookup('env', 'HOME') }}"
