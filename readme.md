@@ -6,17 +6,13 @@ I converting this mess of bash scripts into an ansible install
 
 after starting up my new/reformatted mac, I will airdrop my zipped ~/.ssh directory and api keys file to my new machine. this method is "acceptable" but creating new ssh keys and adding them to github and cloud services is the preferred method.
 
-### make run commmands
-
-use xcode command to install `make`
-
 ```bash
 xcode-select --install
 ```
 
 *opens dialog to install command line tools (including `make` and `git`)*
 
-run the following make commands:
+### make commands
 
 ```bash
 make install # installs homebrew and ansible
