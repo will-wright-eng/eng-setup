@@ -59,7 +59,6 @@
       - ghostty
       - cursor
       - brave-browser
-      - miniconda
       - zoom
       - raycast
       - modern-csv
@@ -68,6 +67,13 @@
     ignore_errors: yes
     tags:
       - brew-casks
+
+  - name: Remove existing .zshrc if it exists
+    file:
+      path: ~/.zshrc
+      state: absent
+    tags:
+      - zsh-config
 
   - name: Configure Oh My Zsh
     blockinfile:
@@ -100,7 +106,7 @@
         alias zshconfig="mate ~/.zshrc"
         alias ohmyzsh="mate ~/.oh-my-zsh"
 
-        source ~/.secrets
+        source ~/keys
         eval "$(atuin init zsh --disable-up-arrow)"
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
       create: yes
@@ -108,43 +114,65 @@
     tags:
       - zsh-config
 
+  - name: Create miniconda directory
+    file:
+      path: ~/miniconda3
+      state: directory
+    tags:
+      - miniconda
+
+  - name: Download Miniconda installer
+    get_url:
+      url: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+      dest: ~/miniconda3/miniconda.sh
+      mode: '0755'
+    tags:
+      - miniconda
+
+  - name: Install Miniconda
+    shell: bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+    args:
+      creates: ~/miniconda3/bin/conda
+    tags:
+      - miniconda
+
+  - name: Remove Miniconda installer
+    file:
+      path: ~/miniconda3/miniconda.sh
+      state: absent
+    tags:
+      - miniconda
+
+  - name: Source conda activate
+    shell: source ~/miniconda3/bin/activate
+    args:
+      executable: /bin/bash
+    tags:
+      - miniconda
+
+  - name: Initialize conda
+    shell: ~/miniconda3/bin/conda init --all
+    args:
+      executable: /bin/bash
+    tags:
+      - miniconda
+
   post_tasks:
-  - name: Final cleanup and notice
-    tags: slack
+  - name: Display Rye installation instructions
     debug:
       msg: |
-        Done. Note that some of these changes require a logout/restart of your OS to take effect. At a minimum, be sure to restart your Terminal.
+        Please install Rye in an interactive shell by running:
 
-        #################
-        ## conda setup ##
-        #################
+        curl -sSf https://rye.astral.sh/get | bash
 
-        Please run the following to setup your shell:
-            conda init "$(basename "${SHELL}")"
-
-        Alternatively, manually add the following to your shell init:
-            eval "$(conda "shell.$(basename "${SHELL}")" hook)"
-
-        In order to remove (base) from default shell:
-        `conda config --set auto_activate_base false`
-        -
-    delegate_to: localhost
-
-  - name: Install Rye
-    shell: |
-      curl -sSf https://rye.astral.sh/get -o /tmp/rye-install.sh
-      NONINTERACTIVE=1 RYE_NO_AUTO_INSTALL=1 bash /tmp/rye-install.sh
-    tags:
-      - rye
-
-  - name: Add Rye to path
-    blockinfile:
-      path: ~/.zshrc
-      block: |
-        # Add Rye to PATH
+        After installation, add this to your shell config (~/.zshrc):
         source "$HOME/.rye/env"
-      marker: "# {mark} RYE CONFIG"
-      create: yes
+
+        Then restart your shell or run:
+        source ~/.zshrc
+
+        Add Python shim global installs to PATH:
+        export PATH="$HOME/.rye/py/cpython@3.12.8/bin:$PATH"
     tags:
       - rye
 
