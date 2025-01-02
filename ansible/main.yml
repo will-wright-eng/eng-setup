@@ -63,7 +63,8 @@
       - zoom
       - raycast
       - modern-csv
-      - rancher
+      - orbstack
+      - sqlitestudio
     ignore_errors: yes
     tags:
       - brew-casks
