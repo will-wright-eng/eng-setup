@@ -108,6 +108,27 @@
 
         source ~/keys
         eval "$(atuin init zsh --disable-up-arrow)"
+
+        create_env_example() {
+            if [ "$#" -ne 1 ]; then
+                echo "Usage: dotenvex <path-to-env-file>"
+                return 1
+            fi
+
+            local ENV_FILE="$1"
+            local ENV_EXAMPLE_FILE="${ENV_FILE}.example"
+
+            awk -F '=' '/=/ {
+                if (tolower($1) ~ /(key|token|secret|password)/) {
+                    print $1 "=REDACTED"
+                } else {
+                    print $1 "=" $2
+                }
+            } ! /=/ { print }' "$ENV_FILE" > "$ENV_EXAMPLE_FILE"
+            echo "Example environment file created: $ENV_EXAMPLE_FILE"
+        }
+
+        alias dotenvex="create_env_example"
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
       create: yes
       backup: yes
