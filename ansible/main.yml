@@ -47,6 +47,7 @@
       - zsh-autosuggestions
       - zsh-syntax-highlighting
       - kubectl
+      - wget
     ignore_errors: yes
     tags:
       - brew-packages

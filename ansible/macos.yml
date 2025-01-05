@@ -30,6 +30,7 @@
         - { domain: 'com.apple.dock', key: 'autohide', type: 'bool', value: true }
         - { domain: 'com.apple.dock', key: 'autohide-delay', type: 'float', value: 0 }
         - { domain: 'com.apple.dock', key: 'autohide-time-modifier', type: 'float', value: 0 }
+        - { domain: 'com.apple.dock', key: 'reduce-motion', type: 'bool', value: true }
         - { domain: 'com.apple.controlcenter', key: 'Bluetooth', type: 'int', value: 18 }
 
     - name: Finder settings
