@@ -48,6 +48,7 @@
       - zsh-syntax-highlighting
       - kubectl
       - wget
+      - hugo
     ignore_errors: yes
     tags:
       - brew-packages
