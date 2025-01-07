@@ -66,6 +66,7 @@
       - modern-csv
       - orbstack
       - sqlitestudio
+      - gopanda
     ignore_errors: yes
     tags:
       - brew-casks
