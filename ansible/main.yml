@@ -49,6 +49,8 @@
       - kubectl
       - wget
       - hugo
+      - zoxide
+      - gnupg
     ignore_errors: yes
     tags:
       - brew-packages
@@ -111,6 +113,7 @@
 
         source ~/keys
         eval "$(atuin init zsh --disable-up-arrow)"
+        eval "$(zoxide init zsh)"
 
         create_env_example() {
             if [ "$#" -ne 1 ]; then
