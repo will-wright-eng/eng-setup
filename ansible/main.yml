@@ -7,12 +7,14 @@
     ansible_python_interpreter: /opt/homebrew/bin/python3
 
   tasks:
+  # Shell Environment Setup
   - name: Check if Oh My Zsh is installed
     stat:
       path: ~/.oh-my-zsh
     register: oh_my_zsh_dir
     tags:
       - oh-my-zsh
+      - shell-setup
 
   - name: Install Oh My Zsh
     shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -21,35 +23,43 @@
     when: not oh_my_zsh_dir.stat.exists
     tags:
       - oh-my-zsh
+      - shell-setup
 
+  # Package Management - Homebrew
   - name: Install Homebrew packages
     homebrew:
       name: "{{ item }}"
       state: present
     with_items:
+      # Development Tools
       - node
+      - go
+      - gh
+      - pre-commit
+      - jq
+      - ack
+      # Cloud & Infrastructure
+      - google-cloud-sdk
+      - kubectl
+      - opentofu
+      - tflint
+      # System Tools
       - rectangle
       - bat
-      - gh
       - tree
       - thefuck
       - btop
       - dnsmasq
       - rar
-      - google-cloud-sdk
       - openssh
-      - pre-commit
-      - jq
-      - ack
-      - go
-      - opentofu
+      - wget
+      # Shell Enhancements
       - atuin
       - zsh-autosuggestions
       - zsh-syntax-highlighting
-      - kubectl
-      - wget
-      - hugo
       - zoxide
+      # Other Tools
+      - hugo
       - gnupg
     ignore_errors: yes
     tags:
@@ -60,25 +70,30 @@
       name: "{{ item }}"
       state: present
     with_items:
+      # Development Tools
       - ghostty
       - cursor
+      - sqlitestudio
+      - orbstack
+      # Browsers
       - brave-browser
+      # Productivity
       - zoom
       - raycast
       - modern-csv
-      - orbstack
-      - sqlitestudio
       - gopanda
     ignore_errors: yes
     tags:
       - brew-casks
 
+  # Shell Configuration
   - name: Remove existing .zshrc if it exists
     file:
       path: ~/.zshrc
       state: absent
     tags:
       - zsh-config
+      - shell-setup
 
   - name: Configure Oh My Zsh
     blockinfile:
@@ -140,13 +155,16 @@
       backup: yes
     tags:
       - zsh-config
+      - shell-setup
 
+  # Python Environment Setup
   - name: Create miniconda directory
     file:
       path: ~/miniconda3
       state: directory
     tags:
       - miniconda
+      - python-setup
 
   - name: Download Miniconda installer
     get_url:
@@ -155,6 +173,7 @@
       mode: '0755'
     tags:
       - miniconda
+      - python-setup
 
   - name: Install Miniconda
     shell: bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
@@ -162,6 +181,7 @@
       creates: ~/miniconda3/bin/conda
     tags:
       - miniconda
+      - python-setup
 
   - name: Remove Miniconda installer
     file:
@@ -169,6 +189,7 @@
       state: absent
     tags:
       - miniconda
+      - python-setup
 
   - name: Source conda activate
     shell: source ~/miniconda3/bin/activate
@@ -176,6 +197,7 @@
       executable: /bin/bash
     tags:
       - miniconda
+      - python-setup
 
   - name: Initialize conda
     shell: ~/miniconda3/bin/conda init --all
@@ -183,7 +205,18 @@
       executable: /bin/bash
     tags:
       - miniconda
+      - python-setup
 
+  # Python Packages
+  - name: Install shell-gpt using pip
+    pip:
+      name: shell-gpt
+      state: present
+    tags:
+      - pip-packages
+      - python-setup
+
+  # Post-installation Instructions
   post_tasks:
   - name: Display Rye installation instructions
     debug:
@@ -202,10 +235,4 @@
         export PATH="$HOME/.rye/py/cpython@3.12.8/bin:$PATH"
     tags:
       - rye
-
-  - name: Install shell-gpt using pip
-    pip:
-      name: shell-gpt
-      state: present
-    tags:
-      - pip-packages
+      - python-setup
