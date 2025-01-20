@@ -43,6 +43,7 @@
       - kubectl
       - opentofu
       - tflint
+      - doctl
       # System Tools
       - rectangle
       - bat
