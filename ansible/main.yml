@@ -40,10 +40,13 @@
       - ack
       # Cloud & Infrastructure
       - google-cloud-sdk
-      - kubectl
       - opentofu
       - tflint
       - doctl
+      - kubectx
+      - kubernetes-cli
+      - k9s
+      - kustomize
       # System Tools
       - rectangle
       - bat
