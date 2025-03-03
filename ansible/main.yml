@@ -62,6 +62,7 @@
       - zsh-autosuggestions
       - zsh-syntax-highlighting
       - zoxide
+      - ripgrep
       # Other Tools
       - hugo
       - gnupg
@@ -127,6 +128,7 @@
         alias ll='ls -lah'
         alias la='ls -A'
         alias l='ls -CF'
+        # alias gac
         alias zshconfig="mate ~/.zshrc"
         alias ohmyzsh="mate ~/.oh-my-zsh"
 
