@@ -85,6 +85,12 @@ cursor-import-keybindings      [cursor] import keybindings
 cursor                         [cursor] run import commands
 ```
 
+## todo
+
+- fix rye setup
+- add global rye to zshrc ([eg](https://github.com/astral-sh/rye/discussions/998#discussioncomment-10385800))
+- fix `make install` bug
+
 ## references
 
 - [Using Ansible to automate software installation on my Mac | Opensource.com](https://opensource.com/article/22/6/install-software-macos-ansible-homebrew)
