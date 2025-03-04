@@ -68,8 +68,8 @@ CONFIG_FILE="$SSH_DIR/config"
 if [ ! -f "$CONFIG_FILE" ]; then
     cat > "$CONFIG_FILE" <<EOF
 Host github.com
+    IgnoreUnknown UseKeychain
     AddKeysToAgent yes
-    UseKeychain yes
     IdentityFile ~/.ssh/id_ed25519
 EOF
     echo "SSH config file created at $CONFIG_FILE"
@@ -77,8 +77,8 @@ else
     echo "SSH config file already exists at $CONFIG_FILE, appending github.com config"
     cat >> "$CONFIG_FILE" <<EOF
 Host github.com
+    IgnoreUnknown UseKeychain
     AddKeysToAgent yes
-    UseKeychain yes
     IdentityFile ~/.ssh/id_ed25519
 EOF
 fi

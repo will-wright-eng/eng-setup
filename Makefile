@@ -1,6 +1,6 @@
 #* Variables
 SHELL := /usr/bin/env bash
-CURSOR_CLI := code
+CURSOR_CLI := cursor
 
 #* Setup
 .PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
@@ -42,7 +42,7 @@ cursor-export-extensions: ## [cursor] export extensions
 	$(CURSOR_CLI) --list-extensions > configs/cursor-extensions.txt
 
 cursor-import-extensions: ## [cursor] import extensions
-	cat configs/cursor-extensions.txt -p | xargs -n 1 $(CURSOR_CLI) --install-extension
+	/bin/cat configs/cursor-extensions.txt | xargs -n 1 $(CURSOR_CLI) --install-extension
 
 cursor-show-keybindings: ## [cursor] show keybindings
 	cat "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
