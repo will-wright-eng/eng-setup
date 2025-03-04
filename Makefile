@@ -2,6 +2,8 @@
 SHELL := /usr/bin/env bash
 CURSOR_CLI := cursor
 
+include .env
+
 #* Setup
 .PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
 .DEFAULT_GOAL := help
@@ -54,3 +56,8 @@ cursor-import-keybindings: ## [cursor] import keybindings
 	cp configs/cursor-keybindings.json "/Users/$(USER)/Library/Application Support/Cursor/User/keybindings.json"
 
 cursor: cursor-import-extensions cursor-import-keybindings ## [cursor] run import commands
+
+#* Git
+gitsetup: ## [git] setup git global configs
+	git config --global user.name "$(GITHUB_USERNAME)"
+	git config --global user.email "$(GITHUB_EMAIL)"
