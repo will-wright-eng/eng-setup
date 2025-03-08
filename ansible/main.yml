@@ -41,6 +41,7 @@
       # Cloud & Infrastructure
       - google-cloud-sdk
       - opentofu
+      - warrensbox/tap/tfswitch
       - tflint
       - doctl
       - kubectx
