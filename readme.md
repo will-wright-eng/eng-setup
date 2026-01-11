@@ -34,20 +34,20 @@ make gitssh # creates new ssh keys and adds them to github
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-2. install ansible
+1. install ansible
 
 ```bash
 brew install ansible
 ```
 
-3. run the playbooks
+1. run the playbooks
 
 ```bash
 ansible-playbook ansible/main.yml -i "localhost,"
 ansible-playbook ansible/macos.yml -i "localhost,"
 ```
 
-4. set global git configs
+1. set global git configs
 
 ```bash
 git config --global user.name "John Doe"

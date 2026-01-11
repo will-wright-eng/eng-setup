@@ -14,7 +14,7 @@ def extract_crx(crx_path, output_dir):
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
-    with open(crx_path, 'rb') as f:
+    with open(crx_path, "rb") as f:
         data = f.read()
 
         # Check if file is empty
@@ -27,30 +27,36 @@ def extract_crx(crx_path, output_dir):
 
         magic = data[:4]
 
-        if magic == b'Cr24':
+        if magic == b"Cr24":
             # CRX format - find ZIP file start
             # ZIP files start with "PK\x03\x04"
-            zip_start = data.find(b'PK\x03\x04')
+            zip_start = data.find(b"PK\x03\x04")
             if zip_start < 0:
-                raise ValueError("Could not find ZIP data in CRX file (missing PK header)")
+                raise ValueError(
+                    "Could not find ZIP data in CRX file (missing PK header)"
+                )
 
             # Extract from ZIP start position
             zip_data = data[zip_start:]
             try:
-                with zipfile.ZipFile(io.BytesIO(zip_data), 'r') as z:
+                with zipfile.ZipFile(io.BytesIO(zip_data), "r") as z:
                     z.extractall(output_dir)
             except zipfile.BadZipFile as e:
                 raise ValueError(f"Invalid ZIP file in CRX: {e}")
         else:
             # Might be a plain ZIP file
             try:
-                with zipfile.ZipFile(io.BytesIO(data), 'r') as z:
+                with zipfile.ZipFile(io.BytesIO(data), "r") as z:
                     z.extractall(output_dir)
             except zipfile.BadZipFile:
                 # Check if it's HTML (common when download fails)
-                if data.startswith(b'<'):
-                    raise ValueError("Downloaded file appears to be HTML, not a CRX file (download may have failed)")
-                raise ValueError(f"File is not a valid CRX or ZIP file (magic: {magic})")
+                if data.startswith(b"<"):
+                    raise ValueError(
+                        "Downloaded file appears to be HTML, not a CRX file (download may have failed)"
+                    )
+                raise ValueError(
+                    f"File is not a valid CRX or ZIP file (magic: {magic})"
+                )
 
 
 def main():
@@ -72,5 +78,5 @@ def main():
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
