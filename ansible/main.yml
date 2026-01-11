@@ -82,7 +82,7 @@
       - sqlitestudio
       - orbstack
       # Browsers
-      - brave-browser
+      - ungoogled-chromium
       # Productivity
       - zoom
       - raycast

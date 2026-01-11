@@ -36,8 +36,48 @@ run: ## run playbooks normally
 gitssh: ## setup git ssh
 	bash scripts/setup-github-ssh.sh
 
-extensions: ## install browser extensions
-	python3 scripts/browser-extensions.py
+extensions-download: ## download browser extension CRX files
+	bash scripts/download-extensions.sh
+
+extensions-extract: ## extract CRX files to unpacked extensions
+	@REPO_ROOT=$$(git rev-parse --show-toplevel); \
+	EXT_DIR="$$REPO_ROOT/extensions"; \
+	echo "Extracting CRX files..."; \
+	for crx in $$EXT_DIR/*.crx; do \
+		if [ -f "$$crx" ]; then \
+			base=$$(basename "$$crx" .crx); \
+			extract_dir="$$EXT_DIR/$$base"; \
+			echo "Extracting $$(basename $$crx) to $$base/..."; \
+			mkdir -p "$$extract_dir"; \
+			bash scripts/extract-crx.sh "$$crx" "$$extract_dir" && \
+			echo "✓ Extracted to $$extract_dir/" || \
+			echo "✗ Failed to extract $$(basename $$crx)"; \
+		fi; \
+	done; \
+	echo ""; \
+	echo "✓ All extensions extracted successfully!"; \
+	echo ""; \
+	echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; \
+	echo "📦 Instructions for adding unpacked extensions to Ungoogled Chromium:"; \
+	echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; \
+	echo ""; \
+	echo "1. Open Ungoogled Chromium"; \
+	echo "2. Navigate to: chrome://extensions/"; \
+	echo "3. Enable 'Developer mode' (toggle in top-right corner)"; \
+	echo "4. Click 'Load unpacked' button"; \
+	echo "5. Select one of the following directories:"; \
+	echo ""; \
+	for crx in $$EXT_DIR/*.crx; do \
+		if [ -f "$$crx" ]; then \
+			base=$$(basename "$$crx" .crx); \
+			echo "   • $$EXT_DIR/$$base"; \
+		fi; \
+	done; \
+	echo ""; \
+	echo "6. Repeat steps 4-5 for each extension you want to install"; \
+	echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+extensions: extensions-download extensions-extract ## download and extract browser extensions
 
 #* Cursor
 cursor-export-extensions: ## [cursor] export extensions
