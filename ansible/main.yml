@@ -224,21 +224,19 @@
 
   # Post-installation Instructions
   post_tasks:
-  - name: Display Rye installation instructions
+  - name: Display uv installation instructions
     debug:
       msg: |
-        Please install Rye in an interactive shell by running:
+        Please install uv in an interactive shell by running:
 
-        curl -sSf https://rye.astral.sh/get | bash
+        curl -LsSf https://astral.sh/uv/install.sh | sh
 
         After installation, add this to your shell config (~/.zshrc):
-        source "$HOME/.rye/env"
+        export PATH="$HOME/.local/bin:$PATH"
+        eval "$(uv generate-shell-completion zsh)"
 
         Then restart your shell or run:
         source ~/.zshrc
-
-        Add Python shim global installs to PATH:
-        export PATH="$HOME/.rye/py/cpython@3.12.8/bin:$PATH"
     tags:
-      - rye
+      - uv
       - python-setup
