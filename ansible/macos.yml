@@ -6,8 +6,6 @@
   become: no
   vars:
     ansible_python_interpreter: /opt/homebrew/bin/python3
-
-  vars:
     home_dir: "{{ lookup('env', 'HOME') }}"
 
   tasks:

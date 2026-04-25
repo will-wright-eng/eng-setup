@@ -37,33 +37,49 @@
       - gh
       - pre-commit
       - jq
-      - ack
-      # Cloud & Infrastructure
-      - google-cloud-sdk
-      - opentofu
-      - warrensbox/tap/tfswitch
-      - tflint
-      - doctl
-      - kubectx
-      - kubernetes-cli
-      - k9s
-      - kustomize
-      # System Tools
-      - rectangle
-      - bat
-      - tree
-      - thefuck
-      - btop
-      - dnsmasq
-      - rar
-      - openssh
-      - wget
-      # Shell Enhancements
-      - atuin
-      - zsh-autosuggestions
-      - zsh-syntax-highlighting
+      - bash
       - zoxide
       - ripgrep
+      - atuin
+      - bun
+      - mise
+      - tig
+      - python@3.14
+      # Cloud & Infrastructure
+      - awscli
+      - opentofu
+      - terraform
+      - warrensbox/tap/tfswitch
+      - tflint
+      # Docker
+      - docker
+      - docker-buildx
+      - docker-compose
+      - docker-completion
+      - doctl
+      - colima
+      # Kubernetes
+      # - kubectx
+      # - kubernetes-cli
+      # - k9s
+      # - kustomize
+      # System Tools
+      - bat
+      - tree
+      - btop
+      - dnsmasq
+      - openssh
+      - wget
+      - blueutil
+      - coreutils
+      # Shell Enhancements
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+      # AI Tools
+      - ollama
+      - opencode
+      # Data
+      - postgresql@17
       # Other Tools
       - hugo
       - gnupg
@@ -79,15 +95,22 @@
       # Development Tools
       - ghostty
       - cursor
+      - claude-code
+      - codex
       - sqlitestudio
-      - orbstack
       # Browsers
       - ungoogled-chromium
+      - google-chrome
       # Productivity
-      - zoom
       - raycast
+      - rectangle
       - modern-csv
+      - zoom
+      # Cloud & Infrastructure
+      - gcloud-cli
+      # Other
       - gopanda
+      - rar
     ignore_errors: yes
     tags:
       - brew-casks
@@ -163,64 +186,14 @@
       - zsh-config
       - shell-setup
 
-  # Python Environment Setup
-  - name: Create miniconda directory
-    file:
-      path: ~/miniconda3
-      state: directory
+  # Git Configuration
+  - name: Copy .gitconfig
+    copy:
+      src: "{{ playbook_dir }}/configs/.gitconfig"
+      dest: ~/.gitconfig
+      backup: yes
     tags:
-      - miniconda
-      - python-setup
-
-  - name: Download Miniconda installer
-    get_url:
-      url: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-      dest: ~/miniconda3/miniconda.sh
-      mode: '0755'
-    tags:
-      - miniconda
-      - python-setup
-
-  - name: Install Miniconda
-    shell: bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-    args:
-      creates: ~/miniconda3/bin/conda
-    tags:
-      - miniconda
-      - python-setup
-
-  - name: Remove Miniconda installer
-    file:
-      path: ~/miniconda3/miniconda.sh
-      state: absent
-    tags:
-      - miniconda
-      - python-setup
-
-  - name: Source conda activate
-    shell: source ~/miniconda3/bin/activate
-    args:
-      executable: /bin/bash
-    tags:
-      - miniconda
-      - python-setup
-
-  - name: Initialize conda
-    shell: ~/miniconda3/bin/conda init --all
-    args:
-      executable: /bin/bash
-    tags:
-      - miniconda
-      - python-setup
-
-  # Python Packages
-  - name: Install shell-gpt using pip
-    pip:
-      name: shell-gpt
-      state: present
-    tags:
-      - pip-packages
-      - python-setup
+      - git-config
 
   # Post-installation Instructions
   post_tasks:
