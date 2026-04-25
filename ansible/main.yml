@@ -37,33 +37,49 @@
       - gh
       - pre-commit
       - jq
-      - ack
-      # Cloud & Infrastructure
-      - google-cloud-sdk
-      - opentofu
-      - warrensbox/tap/tfswitch
-      - tflint
-      - doctl
-      - kubectx
-      - kubernetes-cli
-      - k9s
-      - kustomize
-      # System Tools
-      - rectangle
-      - bat
-      - tree
-      - thefuck
-      - btop
-      - dnsmasq
-      - rar
-      - openssh
-      - wget
-      # Shell Enhancements
-      - atuin
-      - zsh-autosuggestions
-      - zsh-syntax-highlighting
+      - bash
       - zoxide
       - ripgrep
+      - atuin
+      - bun
+      - mise
+      - tig
+      - python@3.14
+      # Cloud & Infrastructure
+      - awscli
+      - opentofu
+      - terraform
+      - warrensbox/tap/tfswitch
+      - tflint
+      # Docker
+      - docker
+      - docker-buildx
+      - docker-compose
+      - docker-completion
+      - doctl
+      - colima
+      # Kubernetes
+      # - kubectx
+      # - kubernetes-cli
+      # - k9s
+      # - kustomize
+      # System Tools
+      - bat
+      - tree
+      - btop
+      - dnsmasq
+      - openssh
+      - wget
+      - blueutil
+      - coreutils
+      # Shell Enhancements
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+      # AI Tools
+      - ollama
+      - opencode
+      # Data
+      - postgresql@17
       # Other Tools
       - hugo
       - gnupg
@@ -79,15 +95,22 @@
       # Development Tools
       - ghostty
       - cursor
+      - claude-code
+      - codex
       - sqlitestudio
-      - orbstack
       # Browsers
       - ungoogled-chromium
+      - google-chrome
       # Productivity
-      - zoom
       - raycast
+      - rectangle
       - modern-csv
+      - zoom
+      # Cloud & Infrastructure
+      - gcloud-cli
+      # Other
       - gopanda
+      - rar
     ignore_errors: yes
     tags:
       - brew-casks
