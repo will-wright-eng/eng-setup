@@ -41,15 +41,15 @@
       - zoxide
       - ripgrep
       - atuin
-      - bun
+      - oven-sh/bun/bun
       - mise
       - tig
       - python@3.14
       # Cloud & Infrastructure
       - awscli
       - opentofu
-      - terraform
-      - warrensbox/tap/tfswitch
+      - hashicorp/tap/terraform
+      - tfenv
       - tflint
       # Docker
       - docker
