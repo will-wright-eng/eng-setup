@@ -33,9 +33,6 @@ run: ## run playbooks normally
 	ansible-playbook ansible/macos.yml -i "localhost," || true
 
 #* Scripts
-gitssh: ## setup git ssh
-	bash scripts/setup-github-ssh.sh
-
 extensions-download: ## download browser extension CRX files
 	bash scripts/download-extensions.sh
 
@@ -101,3 +98,9 @@ cursor: cursor-import-extensions cursor-import-keybindings ## [cursor] run impor
 gitsetup: ## [git] setup git global configs
 	git config --global user.name "$(GITHUB_USERNAME)"
 	git config --global user.email "$(GITHUB_EMAIL)"
+
+gitssh: ## setup git ssh
+	bash scripts/setup-github-ssh.sh "$(GITHUB_EMAIL)" "$(GITHUB_USERNAME)"
+
+gitgpg: ## setup git gpg
+	bash scripts/setup-github-gpg.sh "$(GITHUB_EMAIL)" "$(GITHUB_USERNAME)"

@@ -105,7 +105,6 @@
       - raycast
       - rectangle
       - modern-csv
-      - zoom
       # Cloud & Infrastructure
       - gcloud-cli
       # Other
@@ -138,16 +137,9 @@
         source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
         source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-        # for mac intel
-        # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-        # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
         RPROMPT='%*'
 
         # ALIAS
-        source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-        eval $(thefuck --alias)
-
         alias cat='bat --paging=never'
         alias ll='ls -lah'
         alias la='ls -A'
@@ -155,7 +147,6 @@
         alias zshconfig="mate ~/.zshrc"
         alias ohmyzsh="mate ~/.oh-my-zsh"
 
-        source ~/keys
         eval "$(atuin init zsh --disable-up-arrow)"
         eval "$(zoxide init zsh)"
 
@@ -179,6 +170,11 @@
         }
 
         alias dotenvex="create_env_example"
+
+        gac() {
+          git add --all
+          git commit -m "$*"
+        }
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
       create: yes
       backup: yes
