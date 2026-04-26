@@ -28,7 +28,8 @@ make run      # Runs Ansible playbooks
 Optional:
 
 ```bash
-make gitssh   # Creates new SSH keys and adds them to GitHub
+make gitssh      # Creates new SSH keys and adds them to GitHub
+make gitgpg      # Creates new GPG keys and adds them to GitHub
 make extensions  # Downloads and extracts browser extensions
 ```
 
@@ -64,10 +65,6 @@ git config --global user.email "your.email@example.com"
 
 Or use the Makefile command (requires `.env` file with `GITHUB_USERNAME` and `GITHUB_EMAIL`):
 
-```bash
-make gitsetup
-```
-
 1. Set up SSH keys for GitHub:
 
 - [Create a public SSH key & add it to SSH agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -95,23 +92,24 @@ After running the Ansible playbooks, complete these manual steps:
 Run `make help` to see all available commands, or refer to the list below:
 
 ```bash
-help                           # List all Makefile commands
-install                        # Install Homebrew and Ansible
-setup-homebrew                 # Install Homebrew
-setup-apps                     # Install Ansible
-check                          # Run playbooks in check mode (dry run)
-run                            # Run playbooks normally
-gitssh                         # Setup Git SSH keys
-gitsetup                       # Setup Git global configs (requires .env file)
-extensions                     # Download and extract browser extensions
-extensions-download            # Download browser extension CRX files
-extensions-extract             # Extract CRX files to unpacked extensions
-cursor-export-extensions       # [Cursor] Export extensions list
-cursor-import-extensions       # [Cursor] Import extensions
-cursor-show-keybindings        # [Cursor] Show keybindings
-cursor-export-keybindings      # [Cursor] Export keybindings
-cursor-import-keybindings      # [Cursor] Import keybindings
-cursor                         # [Cursor] Run import commands
+help                           list make commands
+install                        install homebrew and apps
+setup-homebrew                 install homebrew
+setup-apps                     install apps
+check                          run playbooks in check mode
+run                            run playbooks normally
+extensions-download            download browser extension CRX files
+extensions-extract             extract CRX files to unpacked extensions
+extensions                     download and extract browser extensions
+cursor-export-extensions       [cursor] export extensions
+cursor-import-extensions       [cursor] import extensions
+cursor-show-keybindings        [cursor] show keybindings
+cursor-export-keybindings      [cursor] export keybindings
+cursor-import-keybindings      [cursor] import keybindings
+cursor                         [cursor] run import commands
+gitsetup                       [git] setup git global configs
+gitssh                         [git] setup git ssh
+gitgpg                         [git] setup git gpg
 ```
 
 ## Repository Structure
@@ -127,7 +125,7 @@ cursor                         # [Cursor] Run import commands
     - `RectangleConfig.json` - Rectangle window manager config
 - `scripts/` - Helper scripts
     - `setup-github-ssh.sh` - SSH key setup script
-    - `gpg-setup.sh` - GPG setup script
+    - `setup-github-gpg.sh` - GPG setup script
     - Other utility scripts
 - `archive/` - Legacy bash scripts (deprecated, kept for reference)
 - `docs/` - Documentation and notes
@@ -136,7 +134,6 @@ cursor                         # [Cursor] Run import commands
 
 - Fix uv setup
 - Add global uv to `.zshrc` (see [uv documentation](https://docs.astral.sh/uv/getting-started/installation/))
-- Fix `make install` bug
 
 ## References
 
