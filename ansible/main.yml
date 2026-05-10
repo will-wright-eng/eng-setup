@@ -26,6 +26,17 @@
       - shell-setup
 
   # Package Management - Homebrew
+  - name: Add Homebrew taps
+    community.general.homebrew_tap:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - oven-sh/bun
+      - hashicorp/tap
+    tags:
+      - brew-taps
+      - brew-packages
+
   - name: Install Homebrew packages
     homebrew:
       name: "{{ item }}"
@@ -41,14 +52,14 @@
       - zoxide
       - ripgrep
       - atuin
-      - oven-sh/bun/bun
+      - bun
       - mise
       - tig
       - python@3.14
       # Cloud & Infrastructure
       - awscli
       - opentofu
-      - hashicorp/tap/terraform
+      - terraform
       - tfenv
       - tflint
       # Docker
