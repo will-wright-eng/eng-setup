@@ -30,6 +30,8 @@
         - { domain: 'com.apple.dock', key: 'autohide-time-modifier', type: 'float', value: 0 }
         - { domain: 'com.apple.dock', key: 'reduce-motion', type: 'bool', value: true }
         - { domain: 'com.apple.controlcenter', key: 'Bluetooth', type: 'int', value: 18 }
+        - { domain: 'com.apple.WindowManager', key: 'StandardHideWidgets', type: 'bool', value: true }
+        - { domain: 'com.apple.WindowManager', key: 'StageManagerHideWidgets', type: 'bool', value: true }
 
     - name: Finder settings
       community.general.osx_defaults:
@@ -55,6 +57,7 @@
         - "Finder"
         - "Dock"
         - "SystemUIServer"
+        - "WindowManager"
         - "Terminal"
       ignore_errors: yes
 
