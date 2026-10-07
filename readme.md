@@ -21,7 +21,7 @@ This opens a dialog to install the command line tools.
 The easiest way to set up your environment:
 
 ```bash
-make install  # Installs Homebrew and Ansible
+make install  # Installs Homebrew, then everything in the Brewfile (including Ansible)
 make run      # Runs Ansible playbooks
 ```
 
@@ -43,10 +43,10 @@ If you prefer to run commands manually:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-1. Install Ansible:
+1. Install the Brewfile packages (taps, formulae, casks, and Ansible):
 
 ```bash
-brew install ansible
+brew bundle install --file=Brewfile --no-upgrade
 ```
 
 1. Run the playbooks:
@@ -93,9 +93,12 @@ Run `make help` to see all available commands, or refer to the list below:
 
 ```bash
 help                           list make commands
-install                        install homebrew and apps
+install                        install homebrew and Brewfile packages
 setup-homebrew                 install homebrew
-setup-apps                     install apps
+brew                           install taps, formulae, and casks from Brewfile
+brew-check                     report Brewfile entries not yet installed
+brew-dump                      regenerate Brewfile from installed packages
+brew-cleanup                   list installed packages not in Brewfile
 check                          run playbooks in check mode
 run                            run playbooks normally
 extensions-download            download browser extension CRX files
@@ -114,8 +117,9 @@ gitgpg                         [git] setup git gpg
 
 ## Repository Structure
 
+- `Brewfile` - Homebrew taps, formulae, and casks installed by `make brew`
 - `ansible/` - Ansible playbooks for automated setup
-    - `main.yml` - Main playbook (packages, shell config, Python environment)
+    - `main.yml` - Main playbook (shell config, git config)
     - `macos.yml` - macOS-specific system settings
 - `configs/` - Configuration files for various applications
     - `.gitconfig` - Git configuration

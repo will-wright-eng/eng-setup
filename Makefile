@@ -13,15 +13,25 @@ help: ## list make commands
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 #* Commands
-install: setup-homebrew setup-apps ## install homebrew and apps
+install: setup-homebrew brew ## install homebrew and Brewfile packages
 
 setup-homebrew: ## install homebrew
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 	eval "$$(/opt/homebrew/bin/brew shellenv)"
 
-setup-apps: ## install apps
-	brew install ansible
+#* Homebrew
+brew: ## install taps, formulae, and casks from Brewfile
+	brew bundle install --file=Brewfile --no-upgrade
+
+brew-check: ## report Brewfile entries not yet installed
+	brew bundle check --file=Brewfile --verbose
+
+brew-dump: ## regenerate Brewfile from installed packages
+	brew bundle dump --file=Brewfile --force --no-vscode
+
+brew-cleanup: ## list installed packages not in Brewfile
+	brew bundle cleanup --file=Brewfile
 
 #* Ansible
 check: ## run playbooks in check mode
