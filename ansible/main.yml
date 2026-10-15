@@ -4,20 +4,226 @@
   gather_facts: no
   become: no
   vars:
-    ansible_python_interpreter: /opt/homebrew/bin/python3
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    repo_dir: "{{ playbook_dir | dirname }}"
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    allow_overwrite: false
+    managed_files:
+      - { src: configs/.gitconfig, dest: .gitconfig, tag: git-config }
+      - { src: configs/zed/settings.json, dest: .config/zed/settings.json, tag: zed-config }
+      - { src: configs/zed/keymap.json, dest: .config/zed/keymap.json, tag: zed-config }
+      - { src: configs/ghostty/config, dest: "Library/Application Support/com.mitchellh.ghostty/config", tag: ghostty-config }
+    # --tags narrows the files a run can touch, so an override can't reach files outside its tag
+    managed_files_in_scope: "{{ managed_files if 'all' in ansible_run_tags else managed_files | selectattr('tag', 'in', ansible_run_tags) | list }}"
+    zshrc_marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    zshrc_block: |
+      # ZSH
+      ZSH_THEME="robbyrussell"
+      plugins=(git git-prompt web-search jsontools)
+      export ZSH="$HOME/.oh-my-zsh"
+      source $ZSH/oh-my-zsh.sh
+
+      # for mac M series
+      source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+      source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+      # for mac intel
+      # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+      # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+      RPROMPT='%*'
+
+      # PATH
+      export PATH="$HOME/.local/bin:$PATH"
+
+      # ALIAS
+      source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+
+      alias cat='bat --paging=never'
+      alias ll='ls -lah'
+      alias la='ls -A'
+      alias l='ls -CF'
+      alias zshconfig="mate ~/.zshrc"
+      alias ohmyzsh="mate ~/.oh-my-zsh"
+      alias lv='NVIM_APPNAME=lazyvim nvim'
+
+      [[ -f ~/keys ]] && source ~/keys
+      eval "$(atuin init zsh --disable-up-arrow)"
+      eval "$(zoxide init zsh)"
+
+      create_env_example() {
+          if [ "$#" -ne 1 ]; then
+              echo "Usage: dotenvex <path-to-env-file>"
+              return 1
+          fi
+
+          local ENV_FILE="$1"
+          local ENV_EXAMPLE_FILE="${ENV_FILE}.example"
+
+          # Check if the input file exists
+          if [ ! -f "$ENV_FILE" ]; then
+              echo "Error: File '$ENV_FILE' does not exist"
+              return 1
+          fi
+
+          awk 'BEGIN { FS="=" } {
+              if ($0 ~ /=/) {
+                  # Get the key (everything before the first =)
+                  key=$1
+                  # Get the value (everything after the first =)
+                  value=substr($0, index($0, "=") + 1)
+
+                  if (tolower(key) ~ /(key|token|secret|password|credentials)/) {
+                      print key "=REDACTED"
+                  } else {
+                      print key "=" value
+                  }
+              } else {
+                  print
+              }
+          }' "$ENV_FILE" > "$ENV_EXAMPLE_FILE"
+          echo "Example environment file created: $ENV_EXAMPLE_FILE"
+      }
+
+      alias dotenvex="create_env_example"
+
+      gac() {
+          if [ $# -eq 0 ]; then
+              echo "Usage: gac <commit message>"
+              return 1
+          fi
+          git add -A && git commit -m "$*"
+      }
 
   tasks:
-  # Shell Environment Setup
+  # Drift Checks
+  - name: Check for an existing .zshrc
+    stat:
+      path: "{{ home_dir }}/.zshrc"
+    register: zshrc_file
+    tags:
+      - zsh-config
+      - shell-setup
+
+  - name: Read the existing .zshrc
+    slurp:
+      src: "{{ home_dir }}/.zshrc"
+    register: zshrc_content
+    when: zshrc_file.stat.exists
+    tags:
+      - zsh-config
+      - shell-setup
+
+  # Only a block that already exists can lose content; appending a new one is safe
+  - name: Compare the managed .zshrc block with the repo
+    blockinfile:
+      path: "{{ home_dir }}/.zshrc"
+      block: "{{ zshrc_block }}"
+      marker: "{{ zshrc_marker }}"
+    check_mode: yes
+    diff: yes
+    register: zshrc_drift
+    when:
+      - not allow_overwrite | bool
+      - zshrc_file.stat.exists
+      - "'# BEGIN ANSIBLE MANAGED BLOCK' in (zshrc_content.content | b64decode)"
+    tags:
+      - zsh-config
+      - shell-setup
+
+  - name: Check for existing managed files
+    stat:
+      path: "{{ home_dir }}/{{ item.dest }}"
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
+    register: managed_file_stats
+    tags:
+      - git-config
+      - zed-config
+      - ghostty-config
+
+  - name: Compare managed files with the repo
+    copy:
+      src: "{{ repo_dir }}/{{ item.item.src }}"
+      dest: "{{ home_dir }}/{{ item.item.dest }}"
+    check_mode: yes
+    diff: yes
+    loop: "{{ managed_file_stats.results }}"
+    loop_control:
+      label: "{{ item.item.dest }}"
+    register: managed_file_drift
+    when:
+      - not allow_overwrite | bool
+      - item.stat.exists
+    tags:
+      - git-config
+      - zed-config
+      - ghostty-config
+
+  - name: Report .zshrc drift
+    debug:
+      msg:
+        - "{{ home_dir }}/.zshrc: the managed block differs from the repo (diff above)."
+        - "Take the repo version, backing up the current file first:"
+        - "  ansible-playbook {{ playbook_dir }}/main.yml -i 'localhost,' --tags zsh-config -e allow_overwrite=true"
+        - "Or keep yours: copy the managed block from {{ home_dir }}/.zshrc into zshrc_block in {{ playbook_dir }}/main.yml"
+    when: zshrc_drift | default({}) is changed
+    tags:
+      - zsh-config
+      - shell-setup
+
+  - name: Report managed file drift
+    debug:
+      msg:
+        - "{{ home_dir }}/{{ item.item.item.dest }} differs from the repo (diff above)."
+        - "Take the repo version, backing up the current file first:"
+        - "  ansible-playbook {{ playbook_dir }}/main.yml -i 'localhost,' --tags {{ item.item.item.tag }} -e allow_overwrite=true"
+        - "Or keep yours: cp '{{ home_dir }}/{{ item.item.item.dest }}' '{{ repo_dir }}/{{ item.item.item.src }}'"
+    loop: "{{ managed_file_drift.results | default([]) }}"
+    loop_control:
+      label: "{{ item.item.item.dest }}"
+    when: item is changed
+    tags:
+      - git-config
+      - zed-config
+      - ghostty-config
+
+  - name: Stop before overwriting local changes
+    fail:
+      msg: Local changes would be overwritten (see above). Nothing was changed.
+    when: (zshrc_drift | default({}) is changed) or (managed_file_drift | default({}) is changed)
+    tags:
+      - zsh-config
+      - shell-setup
+      - git-config
+      - zed-config
+      - ghostty-config
+
+  # Shell Configuration
+  - name: Configure Oh My Zsh
+    blockinfile:
+      path: "{{ home_dir }}/.zshrc"
+      block: "{{ zshrc_block }}"
+      marker: "{{ zshrc_marker }}"
+      create: yes
+      backup: yes
+    tags:
+      - zsh-config
+      - shell-setup
+
+  # Runs after the .zshrc block is written so --keep-zshrc has a file to keep;
+  # otherwise the installer moves an existing .zshrc aside or writes its template
   - name: Check if Oh My Zsh is installed
     stat:
-      path: ~/.oh-my-zsh
+      path: "{{ home_dir }}/.oh-my-zsh"
     register: oh_my_zsh_dir
     tags:
       - oh-my-zsh
       - shell-setup
 
   - name: Install Oh My Zsh
-    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
     args:
       executable: /bin/bash
     when: not oh_my_zsh_dir.stat.exists
@@ -25,98 +231,61 @@
       - oh-my-zsh
       - shell-setup
 
-  # Shell Configuration
-  - name: Remove existing .zshrc if it exists
+  # Managed Files
+  - name: Create parent directories for managed files
     file:
-      path: ~/.zshrc
-      state: absent
-    tags:
-      - zsh-config
-      - shell-setup
-
-  - name: Configure Oh My Zsh
-    blockinfile:
-      path: ~/.zshrc
-      block: |
-        # ZSH
-        ZSH_THEME="robbyrussell"
-        plugins=(git git-prompt web-search jsontools)
-        export ZSH="$HOME/.oh-my-zsh"
-        source $ZSH/oh-my-zsh.sh
-
-        # for mac M series
-        source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-        source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-        RPROMPT='%*'
-
-        # ALIAS
-        alias cat='bat --paging=never'
-        alias ll='ls -lah'
-        alias la='ls -A'
-        alias l='ls -CF'
-        alias zshconfig="mate ~/.zshrc"
-        alias ohmyzsh="mate ~/.oh-my-zsh"
-
-        eval "$(atuin init zsh --disable-up-arrow)"
-        eval "$(zoxide init zsh)"
-
-        create_env_example() {
-            if [ "$#" -ne 1 ]; then
-                echo "Usage: dotenvex <path-to-env-file>"
-                return 1
-            fi
-
-            local ENV_FILE="$1"
-            local ENV_EXAMPLE_FILE="${ENV_FILE}.example"
-
-            awk -F '=' '/=/ {
-                if (tolower($1) ~ /(key|token|secret|password)/) {
-                    print $1 "=REDACTED"
-                } else {
-                    print $1 "=" $2
-                }
-            } ! /=/ { print }' "$ENV_FILE" > "$ENV_EXAMPLE_FILE"
-            echo "Example environment file created: $ENV_EXAMPLE_FILE"
-        }
-
-        alias dotenvex="create_env_example"
-
-        gac() {
-          git add --all
-          git commit -m "$*"
-        }
-      marker: "# {mark} ANSIBLE MANAGED BLOCK"
-      create: yes
-      backup: yes
-    tags:
-      - zsh-config
-      - shell-setup
-
-  # Git Configuration
-  - name: Copy .gitconfig
-    copy:
-      src: "{{ playbook_dir }}/configs/.gitconfig"
-      dest: ~/.gitconfig
-      backup: yes
+      path: "{{ (home_dir ~ '/' ~ item.dest) | dirname }}"
+      state: directory
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
     tags:
       - git-config
+      - zed-config
+      - ghostty-config
 
-  # Post-installation Instructions
-  post_tasks:
-  - name: Display uv installation instructions
-    debug:
-      msg: |
-        Please install uv in an interactive shell by running:
-
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-
-        After installation, add this to your shell config (~/.zshrc):
-        export PATH="$HOME/.local/bin:$PATH"
-        eval "$(uv generate-shell-completion zsh)"
-
-        Then restart your shell or run:
-        source ~/.zshrc
+  - name: Copy managed files
+    copy:
+      src: "{{ repo_dir }}/{{ item.src }}"
+      dest: "{{ home_dir }}/{{ item.dest }}"
+      backup: yes
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
     tags:
-      - uv
-      - python-setup
+      - git-config
+      - zed-config
+      - ghostty-config
+
+  # LazyVim
+  - name: Check for an existing LazyVim config
+    stat:
+      path: "{{ home_dir }}/.config/lazyvim"
+    register: lazyvim_dir
+    tags:
+      - lazyvim
+
+  - name: Clone the LazyVim starter
+    git:
+      repo: https://github.com/LazyVim/starter
+      dest: "{{ home_dir }}/.config/lazyvim"
+      depth: 1
+    when: not lazyvim_dir.stat.exists
+    tags:
+      - lazyvim
+
+  - name: Detach the LazyVim starter from its upstream repo
+    file:
+      path: "{{ home_dir }}/.config/lazyvim/.git"
+      state: absent
+    when: not lazyvim_dir.stat.exists
+    tags:
+      - lazyvim
+
+  - name: Seed LazyVim extras
+    copy:
+      src: "{{ repo_dir }}/configs/lazyvim/lazyvim.json"
+      dest: "{{ home_dir }}/.config/lazyvim/lazyvim.json"
+    when: not lazyvim_dir.stat.exists
+    tags:
+      - lazyvim
