@@ -34,8 +34,9 @@ counts from atuin history (count and last-used date only).
   zsh completion, and the block puts `~/.local/bin` (uv tools) on PATH.
   The curl-install `post_tasks` message and the README TODO are gone.
 - **Zed and Ghostty configs tracked.** `configs/zed/` holds
-  `settings.json`, which now lists the installed extensions under
-  `auto_install_extensions`, and `keymap.json`. `configs/ghostty/config`
+  `settings.json`, which turns AI features off with `disable_ai` and
+  lists the installed extensions under `auto_install_extensions`, and
+  `keymap.json`. `configs/ghostty/config`
   replaces the iTerm2 profile.
 - **Dead files removed.** `scripts/zsh-functions.sh` and the README's
   `archive/` reference are gone.
@@ -74,8 +75,9 @@ A check-mode run against `$HOME` stops on three files:
   alias and `~/.local/bin` to PATH, guards `source ~/keys`, and moves
   `gac` into the block. Then delete the duplicate `gac` and `lv`
   definitions below the block.
-- **Zed `settings.json`: taking the repo version is safe.** The only
-  difference is the added `auto_install_extensions` list.
+- **Zed `settings.json`: taking the repo version is safe.** It replaces
+  the `agent` block (an ollama default model) with `disable_ai: true` and
+  adds the `auto_install_extensions` list.
 
 ### P1: Brewfile Follow-ups
 
@@ -87,8 +89,6 @@ A check-mode run against `$HOME` stops on three files:
 
 ### P2: Stale Content in the Repo
 
-- **Zed's agent defaults to an ollama model**, but ollama is no longer in
-  the Brewfile. Point it at another provider, or add ollama back.
 - **`scripts/loc.sh`** overlaps with `scc` and `loch`.
 - **The `.zshrc` block still has `zshconfig` and `ohmyzsh` aliases** that
   call `mate`, which is not installed.

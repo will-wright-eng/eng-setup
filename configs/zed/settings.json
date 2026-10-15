@@ -7,16 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "agent": {
-    "dock": "right",
-    "default_model": {
-      "provider": "ollama",
-      "model": "gemma4:e4b",
-      "enable_thinking": true
-    },
-    "favorite_models": [],
-    "model_parameters": []
-  },
+  "disable_ai": true,
   "auto_install_extensions": {
     "dockerfile": true,
     "emmet": true,
