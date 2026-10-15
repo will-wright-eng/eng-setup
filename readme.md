@@ -28,10 +28,24 @@ make run      # Runs Ansible playbooks
 Optional:
 
 ```bash
-make gitssh      # Creates new SSH keys and adds them to GitHub
-make gitgpg      # Creates new GPG keys and adds them to GitHub
-make extensions  # Downloads and extracts browser extensions
+make gitssh  # Creates new SSH keys and adds them to GitHub
+make gitgpg  # Creates new GPG keys and adds them to GitHub
 ```
+
+### When `make run` Stops
+
+`make run` never deletes or overwrites a file that has local changes. Before writing anything, it compares the managed `.zshrc` block and `~/.gitconfig` against the repo. If either differs, it prints the diff, changes nothing, and fails with the commands to resolve it:
+
+```bash
+# take the repo version (the current file is backed up first)
+ansible-playbook ansible/main.yml -i "localhost," --tags zsh-config -e allow_overwrite=true
+ansible-playbook ansible/main.yml -i "localhost," --tags git-config -e allow_overwrite=true
+
+# or keep the local version by copying it into the repo
+cp ~/.gitconfig configs/.gitconfig
+```
+
+Files that don't exist yet are created normally. LazyVim is cloned from the upstream starter into `~/.config/lazyvim` only when that directory is missing.
 
 ### Manual Setup (Alternative)
 
@@ -82,10 +96,7 @@ After running the Ansible playbooks, complete these manual steps:
 
 - Install iTerm2 profile: Import `configs/iterm2-profile.json`
 - Import Rectangle configs: Import `configs/RectangleConfig.json`
-- Run Cursor Makefile commands:
-    - `make cursor-import-extensions`
-    - `make cursor-import-keybindings`
-- Add browser extensions to Ungoogled Chromium (use `make extensions` to download and extract extensions)
+- Open LazyVim once with `lv` to install its plugins
 
 ## Makefile Commands
 
@@ -97,19 +108,9 @@ install                        install homebrew and Brewfile packages
 setup-homebrew                 install homebrew
 brew                           install taps, formulae, and casks from Brewfile
 brew-check                     report Brewfile entries not yet installed
-brew-dump                      regenerate Brewfile from installed packages
 brew-cleanup                   list installed packages not in Brewfile
 check                          run playbooks in check mode
-run                            run playbooks normally
-extensions-download            download browser extension CRX files
-extensions-extract             extract CRX files to unpacked extensions
-extensions                     download and extract browser extensions
-cursor-export-extensions       [cursor] export extensions
-cursor-import-extensions       [cursor] import extensions
-cursor-show-keybindings        [cursor] show keybindings
-cursor-export-keybindings      [cursor] export keybindings
-cursor-import-keybindings      [cursor] import keybindings
-cursor                         [cursor] run import commands
+run                            run playbooks, stopping before overwriting local changes
 gitsetup                       [git] setup git global configs
 gitssh                         [git] setup git ssh
 gitgpg                         [git] setup git gpg
@@ -119,12 +120,11 @@ gitgpg                         [git] setup git gpg
 
 - `Brewfile` - Homebrew taps, formulae, and casks installed by `make brew`
 - `ansible/` - Ansible playbooks for automated setup
-    - `main.yml` - Main playbook (shell config, git config)
+    - `main.yml` - Main playbook (shell config, git config, LazyVim)
     - `macos.yml` - macOS-specific system settings
 - `configs/` - Configuration files for various applications
     - `.gitconfig` - Git configuration
-    - `cursor-extensions.txt` - Cursor IDE extensions list
-    - `cursor-keybindings.json` - Cursor IDE keybindings
+    - `lazyvim/lazyvim.json` - LazyVim extras seeded on first install
     - `iterm2-profile.json` - iTerm2 profile
     - `RectangleConfig.json` - Rectangle window manager config
 - `scripts/` - Helper scripts
