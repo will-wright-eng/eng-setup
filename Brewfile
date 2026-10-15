@@ -105,7 +105,6 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
 # AI Tools
-brew "ollama"
 brew "openrouterlabs/tap/ori"
 
 # Data
@@ -129,7 +128,6 @@ cask "codex"
 
 # Casks - Browsers
 cask "google-chrome"
-cask "firefox"
 
 # Casks - Productivity
 cask "rectangle"
@@ -140,7 +138,6 @@ cask "zoom"
 # Casks - Cloud & Infrastructure
 cask "gcloud-cli"
 cask "session-manager-plugin"
-cask "tailscale-app"
 
 # Casks - Other
 cask "basictex"

@@ -30,10 +30,14 @@ counts from atuin history (count and last-used date only).
 - **Brewfile installs again.** It drops `sqlitestudio` and the removed
   `terraform` core formula. HashiCorp's `hashicorp/tap/terraform` is
   installed with `link: false`, because tfenv owns `bin/terraform`.
-- **Brewfile matches daily use.** It adds 66 missing taps, formulae, and
-  casks. It removes `cursor`, `ungoogled-chromium`,
-  `raycast`, `modern-csv`, `gopanda`, `rar`, `opencode`,
-  `docker-completion`, `doctl`, and `blueutil`. `brew-dump` is gone.
+- **Brewfile matches daily use.** It adds 64 missing taps, formulae, and
+  casks. It removes `cursor`, `ungoogled-chromium`, `raycast`,
+  `modern-csv`, `gopanda`, `rar`, `opencode`, `ollama`,
+  `docker-completion`, `doctl`, and `blueutil`. `codex` and
+  `claude-code` stay as they are. `brew-dump` is gone.
+- **tfswitch removed locally.** The formula, the `warrensbox/tap` cask,
+  and the shadowed `~/bin/terraform` 1.5.5 symlink are gone. `terraform`
+  still resolves to tfenv.
 - **LazyVim bootstraps from upstream.** When `~/.config/lazyvim` is
   missing, the playbook clones the LazyVim starter and seeds
   `lazyvim.json` from `configs/lazyvim/`. An existing config is never
@@ -60,15 +64,9 @@ A check-mode run against `$HOME` stops on both managed files:
 
 ### P1: Brewfile Follow-ups
 
-- **Decide on `ollama`, `codex`, and `claude-code`.** None are installed,
-  so `make brew` will install them. Claude Code already runs from the
-  native installer in `~/.local/bin`, so the cask would add a second copy.
-- **Adopt apps installed outside Homebrew.** `make brew` fails on Firefox
-  and Tailscale until Homebrew owns them:
-  `brew install --cask --adopt firefox tailscale-app`.
-- **Remove the unused terraform switchers.** `tfswitch` is installed as
-  both a formula and a cask (last used 2025-03), and `~/bin/terraform` is
-  a shadowed 1.5.5 symlink.
+- **tfswitch leftovers.** `warrensbox/tap` is still tapped with nothing
+  installed from it, `~/.terraform.versions` holds 69 MB of tfswitch
+  downloads, and `.zshrc` still adds the now-empty `~/bin` to PATH.
 - **Kubernetes.** The Brewfile comments these out, but `k9s`, `kubectx`,
   and `kustomize` are still installed (last used 2025-09).
 
@@ -123,6 +121,7 @@ A check-mode run against `$HOME` stops on both managed files:
   `jsonnet-bundler`, `dive`, `gonzo`, `cliclick`, `nmap`, `ack`.
 - Apps in `/Applications` that look employer-managed (endpoint security,
   VPN, HR tools).
+- Firefox and Tailscale, which stay installed outside Homebrew.
 - Secrets. Keep sourcing them from an untracked file.
 
 ## References
