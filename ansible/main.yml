@@ -8,6 +8,13 @@
     repo_dir: "{{ playbook_dir | dirname }}"
     home_dir: "{{ lookup('env', 'HOME') }}"
     allow_overwrite: false
+    managed_files:
+      - { src: configs/.gitconfig, dest: .gitconfig, tag: git-config }
+      - { src: configs/zed/settings.json, dest: .config/zed/settings.json, tag: zed-config }
+      - { src: configs/zed/keymap.json, dest: .config/zed/keymap.json, tag: zed-config }
+      - { src: configs/ghostty/config, dest: "Library/Application Support/com.mitchellh.ghostty/config", tag: ghostty-config }
+    # --tags narrows the files a run can touch, so an override can't reach files outside its tag
+    managed_files_in_scope: "{{ managed_files if 'all' in ansible_run_tags else managed_files | selectattr('tag', 'in', ansible_run_tags) | list }}"
     zshrc_marker: "# {mark} ANSIBLE MANAGED BLOCK"
     zshrc_block: |
       # ZSH
@@ -25,6 +32,9 @@
       # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
       RPROMPT='%*'
+
+      # PATH
+      export PATH="$HOME/.local/bin:$PATH"
 
       # ALIAS
       source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
@@ -121,49 +131,74 @@
       - zsh-config
       - shell-setup
 
-  - name: Check for an existing .gitconfig
+  - name: Check for existing managed files
     stat:
-      path: "{{ home_dir }}/.gitconfig"
-    register: gitconfig_file
+      path: "{{ home_dir }}/{{ item.dest }}"
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
+    register: managed_file_stats
     tags:
       - git-config
+      - zed-config
+      - ghostty-config
 
-  - name: Compare .gitconfig with the repo
+  - name: Compare managed files with the repo
     copy:
-      src: "{{ repo_dir }}/configs/.gitconfig"
-      dest: "{{ home_dir }}/.gitconfig"
+      src: "{{ repo_dir }}/{{ item.item.src }}"
+      dest: "{{ home_dir }}/{{ item.item.dest }}"
     check_mode: yes
     diff: yes
-    register: gitconfig_drift
+    loop: "{{ managed_file_stats.results }}"
+    loop_control:
+      label: "{{ item.item.dest }}"
+    register: managed_file_drift
     when:
       - not allow_overwrite | bool
-      - gitconfig_file.stat.exists
+      - item.stat.exists
     tags:
       - git-config
+      - zed-config
+      - ghostty-config
+
+  - name: Report .zshrc drift
+    debug:
+      msg:
+        - "{{ home_dir }}/.zshrc: the managed block differs from the repo (diff above)."
+        - "Take the repo version, backing up the current file first:"
+        - "  ansible-playbook {{ playbook_dir }}/main.yml -i 'localhost,' --tags zsh-config -e allow_overwrite=true"
+        - "Or keep yours: copy the managed block from {{ home_dir }}/.zshrc into zshrc_block in {{ playbook_dir }}/main.yml"
+    when: zshrc_drift | default({}) is changed
+    tags:
+      - zsh-config
+      - shell-setup
+
+  - name: Report managed file drift
+    debug:
+      msg:
+        - "{{ home_dir }}/{{ item.item.item.dest }} differs from the repo (diff above)."
+        - "Take the repo version, backing up the current file first:"
+        - "  ansible-playbook {{ playbook_dir }}/main.yml -i 'localhost,' --tags {{ item.item.item.tag }} -e allow_overwrite=true"
+        - "Or keep yours: cp '{{ home_dir }}/{{ item.item.item.dest }}' '{{ repo_dir }}/{{ item.item.item.src }}'"
+    loop: "{{ managed_file_drift.results | default([]) }}"
+    loop_control:
+      label: "{{ item.item.item.dest }}"
+    when: item is changed
+    tags:
+      - git-config
+      - zed-config
+      - ghostty-config
 
   - name: Stop before overwriting local changes
     fail:
-      msg:
-        - "{{ item.path }} differs from the repo (diff above). Nothing was changed."
-        - "Take the repo version, backing up the current file first:"
-        - "  ansible-playbook {{ playbook_dir }}/main.yml -i 'localhost,' --tags {{ item.tag }} -e allow_overwrite=true"
-        - "Or keep yours: {{ item.keep }}"
-    loop:
-      - path: "{{ home_dir }}/.zshrc"
-        tag: zsh-config
-        conflict: "{{ zshrc_drift | default({}) is changed }}"
-        keep: "copy the managed block from {{ home_dir }}/.zshrc into zshrc_block in {{ playbook_dir }}/main.yml"
-      - path: "{{ home_dir }}/.gitconfig"
-        tag: git-config
-        conflict: "{{ gitconfig_drift | default({}) is changed }}"
-        keep: "cp {{ home_dir }}/.gitconfig {{ repo_dir }}/configs/.gitconfig"
-    loop_control:
-      label: "{{ item.path }}"
-    when: item.conflict | bool
+      msg: Local changes would be overwritten (see above). Nothing was changed.
+    when: (zshrc_drift | default({}) is changed) or (managed_file_drift | default({}) is changed)
     tags:
       - zsh-config
       - shell-setup
       - git-config
+      - zed-config
+      - ghostty-config
 
   # Shell Configuration
   - name: Configure Oh My Zsh
@@ -196,14 +231,31 @@
       - oh-my-zsh
       - shell-setup
 
-  # Git Configuration
-  - name: Copy .gitconfig
-    copy:
-      src: "{{ repo_dir }}/configs/.gitconfig"
-      dest: "{{ home_dir }}/.gitconfig"
-      backup: yes
+  # Managed Files
+  - name: Create parent directories for managed files
+    file:
+      path: "{{ (home_dir ~ '/' ~ item.dest) | dirname }}"
+      state: directory
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
     tags:
       - git-config
+      - zed-config
+      - ghostty-config
+
+  - name: Copy managed files
+    copy:
+      src: "{{ repo_dir }}/{{ item.src }}"
+      dest: "{{ home_dir }}/{{ item.dest }}"
+      backup: yes
+    loop: "{{ managed_files_in_scope }}"
+    loop_control:
+      label: "{{ item.dest }}"
+    tags:
+      - git-config
+      - zed-config
+      - ghostty-config
 
   # LazyVim
   - name: Check for an existing LazyVim config
@@ -237,22 +289,3 @@
     when: not lazyvim_dir.stat.exists
     tags:
       - lazyvim
-
-  # Post-installation Instructions
-  post_tasks:
-  - name: Display uv installation instructions
-    debug:
-      msg: |
-        Please install uv in an interactive shell by running:
-
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-
-        After installation, add this to your shell config (~/.zshrc):
-        export PATH="$HOME/.local/bin:$PATH"
-        eval "$(uv generate-shell-completion zsh)"
-
-        Then restart your shell or run:
-        source ~/.zshrc
-    tags:
-      - uv
-      - python-setup

@@ -8,11 +8,13 @@ counts from atuin history (count and last-used date only).
 ## Resolved
 
 - **`make run` no longer deletes or overwrites local changes.** The
-  playbook compares the managed `.zshrc` block and `~/.gitconfig` with the
-  repo first. If either differs, it prints the diff, changes nothing, and
-  fails with the override command (`-e allow_overwrite=true`, which backs
-  up first) or the command to copy the local file into the repo. The
-  `|| true` that hid failures is gone.
+  playbook first compares the managed `.zshrc` block and each file in
+  `managed_files` (`.gitconfig`, Zed, Ghostty) with the repo. If any
+  differ, it prints the diffs, changes nothing, and fails with an
+  override command per tag (`--tags <tag> -e allow_overwrite=true`, which
+  backs up first and touches only that tag's files) or the command to
+  copy the local file into the repo. The `|| true` that hid failures is
+  gone.
 - **Oh My Zsh install is non-destructive.** It runs after the `.zshrc`
   block is written, with `--unattended --keep-zshrc`, so it neither moves
   an existing `.zshrc` aside nor writes its template.
@@ -26,7 +28,17 @@ counts from atuin history (count and last-used date only).
 - **`.gitconfig` copy path fixed.** It pointed at `ansible/configs/`,
   which doesn't exist.
 - **The managed `.zshrc` block matches the local one**, plus the
-  `lv` alias, a guarded `source ~/keys`, and `gac`.
+  `lv` alias, a guarded `source ~/keys`, `gac`, and `~/.local/bin` on
+  PATH.
+- **uv setup fixed.** uv comes from the Brewfile, Homebrew installs its
+  zsh completion, and the block puts `~/.local/bin` (uv tools) on PATH.
+  The curl-install `post_tasks` message and the README TODO are gone.
+- **Zed and Ghostty configs tracked.** `configs/zed/` holds
+  `settings.json`, which now lists the installed extensions under
+  `auto_install_extensions`, and `keymap.json`. `configs/ghostty/config`
+  replaces the iTerm2 profile.
+- **Dead files removed.** `scripts/zsh-functions.sh` and the README's
+  `archive/` reference are gone.
 - **Brewfile installs again.** It drops `sqlitestudio` and the removed
   `terraform` core formula. HashiCorp's `hashicorp/tap/terraform` is
   installed with `link: false`, because tfenv owns `bin/terraform`.
@@ -49,7 +61,7 @@ counts from atuin history (count and last-used date only).
 
 ### P0: `make run` Stops on This Machine
 
-A check-mode run against `$HOME` stops on both managed files:
+A check-mode run against `$HOME` stops on three files:
 
 - **`.gitconfig`: don't take the repo version.** It would drop
   `user.signingkey`, `gpg.program`, and the `wl` alias. Fix the repo
@@ -59,8 +71,11 @@ A check-mode run against `$HOME` stops on both managed files:
   `~/.gitconfig.local`, and have `scripts/setup-github-gpg.sh` write it
   there with `git config --file`.
 - **`.zshrc`: taking the repo version is safe.** The diff adds the `lv`
-  alias, guards `source ~/keys`, and moves `gac` into the block. Then
-  delete the duplicate `gac` and `lv` definitions below the block.
+  alias and `~/.local/bin` to PATH, guards `source ~/keys`, and moves
+  `gac` into the block. Then delete the duplicate `gac` and `lv`
+  definitions below the block.
+- **Zed `settings.json`: taking the repo version is safe.** The only
+  difference is the added `auto_install_extensions` list.
 
 ### P1: Brewfile Follow-ups
 
@@ -72,17 +87,9 @@ A check-mode run against `$HOME` stops on both managed files:
 
 ### P2: Stale Content in the Repo
 
-- **Zed configs.** Cursor's are gone, but Zed's `settings.json` and
-  `keymap.json` are not tracked yet. Track them, and list the installed
-  extensions under `auto_install_extensions`. Zed's agent still defaults
-  to an ollama model.
-- **iTerm2 to Ghostty.** Remove `configs/iterm2-profile.json` and its
-  README step. Ghostty's config is still the stock template.
-- **`scripts/zsh-functions.sh`** is not sourced anywhere, and its
-  functions have no recorded uses. `scripts/loc.sh` overlaps with `scc`
-  and `loch`.
-- **README** refers to an `archive/` directory that doesn't exist and
-  carries the uv TODO.
+- **Zed's agent defaults to an ollama model**, but ollama is no longer in
+  the Brewfile. Point it at another provider, or add ollama back.
+- **`scripts/loc.sh`** overlaps with `scc` and `loch`.
 - **The `.zshrc` block still has `zshconfig` and `ohmyzsh` aliases** that
   call `mate`, which is not installed.
 - **`make setup-homebrew`** appends to `~/.zprofile` with `>>` on every
@@ -94,8 +101,9 @@ A check-mode run against `$HOME` stops on both managed files:
 ### P2: Local Cleanup
 
 - **Two uv installs.** The standalone `~/.local/bin/uv` (0.12.20) shadows
-  Homebrew's (0.13.1). Delete `~/.local/bin/uv` and `uvx`, then drop the
-  uv `post_tasks` message in `main.yml`.
+  Homebrew's (0.13.1). Delete `~/.local/bin/uv` and `uvx`, and remove
+  the `. "$HOME/.local/bin/env"` line below the block, which the
+  standalone installer added.
 - **Dead lines outside the `.zshrc` block:** conda init (last used
   2025-03), PATH entries for `openjdk@11`, `node@20`, `node@22`, and
   `postgresql@15`, the pnpm and rye blocks, a duplicate `fpath+=`, a

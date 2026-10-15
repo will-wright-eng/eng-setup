@@ -34,15 +34,23 @@ make gitgpg  # Creates new GPG keys and adds them to GitHub
 
 ### When `make run` Stops
 
-`make run` never deletes or overwrites a file that has local changes. Before writing anything, it compares the managed `.zshrc` block and `~/.gitconfig` against the repo. If either differs, it prints the diff, changes nothing, and fails with the commands to resolve it:
+`make run` never deletes or overwrites a file that has local changes. Before writing anything, it compares these against the repo:
+
+| Tag | Local file | Repo source |
+| --- | --- | --- |
+| `zsh-config` | managed block in `~/.zshrc` | `zshrc_block` in `ansible/main.yml` |
+| `git-config` | `~/.gitconfig` | `configs/.gitconfig` |
+| `zed-config` | `~/.config/zed/settings.json`, `keymap.json` | `configs/zed/` |
+| `ghostty-config` | `~/Library/Application Support/com.mitchellh.ghostty/config` | `configs/ghostty/config` |
+
+If any differ, it prints the diff, changes nothing, and fails with the commands to resolve each one:
 
 ```bash
-# take the repo version (the current file is backed up first)
-ansible-playbook ansible/main.yml -i "localhost," --tags zsh-config -e allow_overwrite=true
-ansible-playbook ansible/main.yml -i "localhost," --tags git-config -e allow_overwrite=true
+# take the repo version for one tag (the current file is backed up first)
+ansible-playbook ansible/main.yml -i "localhost," --tags zed-config -e allow_overwrite=true
 
 # or keep the local version by copying it into the repo
-cp ~/.gitconfig configs/.gitconfig
+cp ~/.config/zed/settings.json configs/zed/settings.json
 ```
 
 Files that don't exist yet are created normally. LazyVim is cloned from the upstream starter into `~/.config/lazyvim` only when that directory is missing.
@@ -94,7 +102,6 @@ make gitssh
 
 After running the Ansible playbooks, complete these manual steps:
 
-- Install iTerm2 profile: Import `configs/iterm2-profile.json`
 - Import Rectangle configs: Import `configs/RectangleConfig.json`
 - Open LazyVim once with `lv` to install its plugins
 
@@ -120,28 +127,24 @@ gitgpg                         [git] setup git gpg
 
 - `Brewfile` - Homebrew taps, formulae, and casks installed by `make brew`
 - `ansible/` - Ansible playbooks for automated setup
-    - `main.yml` - Main playbook (shell config, git config, LazyVim)
+    - `main.yml` - Main playbook (shell, git, Zed, Ghostty, LazyVim)
     - `macos.yml` - macOS-specific system settings
 - `configs/` - Configuration files for various applications
     - `.gitconfig` - Git configuration
+    - `zed/` - Zed settings (including extensions to auto-install) and keymap
+    - `ghostty/config` - Ghostty terminal config
     - `lazyvim/lazyvim.json` - LazyVim extras seeded on first install
-    - `iterm2-profile.json` - iTerm2 profile
     - `RectangleConfig.json` - Rectangle window manager config
 - `scripts/` - Helper scripts
     - `setup-github-ssh.sh` - SSH key setup script
     - `setup-github-gpg.sh` - GPG setup script
-    - Other utility scripts
-- `archive/` - Legacy bash scripts (deprecated, kept for reference)
+    - `loc.sh` - Lines of code by file extension
 - `docs/` - Documentation and notes
-
-## TODO
-
-- Fix uv setup
-- Add global uv to `.zshrc` (see [uv documentation](https://docs.astral.sh/uv/getting-started/installation/))
 
 ## References
 
 - [Using Ansible to automate software installation on my Mac | Opensource.com](https://opensource.com/article/22/6/install-software-macos-ansible-homebrew)
-- [How to export iTerm2 Profiles](https://stackoverflow.com/a/69724735/14343465)
 - [macos - How to turn off all animations on OS X - Ask Different](https://apple.stackexchange.com/questions/14001/how-to-turn-off-all-animations-on-os-x)
-- [Install iTerm2 profile](https://stackoverflow.com/a/66923620/14343465)
+- [Configuring Zed](https://zed.dev/docs/configuring-zed)
+- [Ghostty configuration](https://ghostty.org/docs/config)
+- [uv installation](https://docs.astral.sh/uv/getting-started/installation/)
